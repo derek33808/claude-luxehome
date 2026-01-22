@@ -1,14 +1,50 @@
 # Luxehome 项目进度
 
 ## 当前状态
-- **阶段**: Phase 1 - 基础框架
-- **任务**: 首页优化完成
-- **状态**: ✅ Phase 1 完成并部署
+- **阶段**: Phase 2 - 产品功能
+- **任务**: 产品详情页开发完成
+- **状态**: ✅ Phase 2 基础完成
 - **线上地址**: https://claude-luxehome.netlify.app/nz
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-22 - 产品详情页开发
+
+**任务**: 创建产品数据和详情页
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 创建产品数据模型 (`src/data/products.ts`)
+- [x] 添加 Smart Digital Calendar 产品（Amazon US）
+- [x] 添加 Mini Arcade Machine 产品（Amazon UK）
+- [x] 创建产品详情页 (`src/app/(frontend)/[region]/p/[slug]/page.tsx`)
+- [x] 更新首页使用真实产品数据
+- [x] SSG 静态生成所有产品页面
+- [x] SEO 优化（JSON-LD 结构化数据）
+
+**产品页面**:
+- Smart Digital Calendar: https://claude-luxehome.netlify.app/nz/p/smart-digital-calendar
+- Mini Arcade Machine: https://claude-luxehome.netlify.app/nz/p/mini-arcade-machine
+
+**新增文件**:
+- `src/data/products.ts` - 产品数据和类型定义
+- `src/app/(frontend)/[region]/p/[slug]/page.tsx` - 产品详情页
+
+**修改文件**:
+- `src/app/(frontend)/[region]/page.tsx` - 首页使用真实产品数据
+
+**已知问题**:
+- [ ] Amazon 图片防盗链导致部分图片无法加载
+- [ ] 需要将图片下载到本地或 CDN 托管
+
+**下一步**:
+- [ ] 解决图片托管问题
+- [ ] 配置 Netlify 环境变量启用 Admin 后台
+- [ ] 添加更多产品
+
+---
 
 ### 2026-01-22 - 首页优化和修复
 

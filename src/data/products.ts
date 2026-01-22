@@ -40,19 +40,19 @@ export const products: Product[] = [
     brand: 'LOCVMIKY',
     images: [
       {
-        url: 'https://m.media-amazon.com/images/I/61CBS64TYsL._AC_SL1500_.jpg',
+        url: '/images/products/smart-digital-calendar/main.jpg',
         alt: 'Smart Digital Calendar - Main View',
       },
       {
-        url: 'https://m.media-amazon.com/images/I/71K9JZHM7QL._AC_SL1500_.jpg',
+        url: '/images/products/smart-digital-calendar/calendar-view.jpg',
         alt: 'Smart Digital Calendar - Calendar View',
       },
       {
-        url: 'https://m.media-amazon.com/images/I/71vMu9tXURL._AC_SL1500_.jpg',
-        alt: 'Smart Digital Calendar - Side View',
+        url: '/images/products/smart-digital-calendar/family-use.jpg',
+        alt: 'Smart Digital Calendar - Family Use',
       },
       {
-        url: 'https://m.media-amazon.com/images/I/71ZJvSdpL8L._AC_SL1500_.jpg',
+        url: '/images/products/smart-digital-calendar/features.jpg',
         alt: 'Smart Digital Calendar - Features',
       },
     ],
@@ -109,19 +109,19 @@ export const products: Product[] = [
     brand: 'Orb Gaming by ThumbsUp',
     images: [
       {
-        url: 'https://m.media-amazon.com/images/I/81gC7u-CLZL._AC_SL1500_.jpg',
+        url: '/images/products/mini-arcade-machine/main.jpg',
         alt: 'Mini Arcade Machine - Front View',
       },
       {
-        url: 'https://m.media-amazon.com/images/I/81IcPyKd7AL._AC_SL1500_.jpg',
+        url: '/images/products/mini-arcade-machine/angle.jpg',
         alt: 'Mini Arcade Machine - Angle View',
       },
       {
-        url: 'https://m.media-amazon.com/images/I/71xFP7AljoL._AC_SL1200_.jpg',
+        url: '/images/products/mini-arcade-machine/side.jpg',
         alt: 'Mini Arcade Machine - Side View',
       },
       {
-        url: 'https://m.media-amazon.com/images/I/81dLECkTEuL._AC_SL1500_.jpg',
+        url: '/images/products/mini-arcade-machine/in-use.jpg',
         alt: 'Mini Arcade Machine - In Use',
       },
     ],
