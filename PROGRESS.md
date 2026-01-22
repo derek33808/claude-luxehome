@@ -1,14 +1,76 @@
 # Luxehome 项目进度
 
 ## 当前状态
-- **阶段**: Phase 2 - 产品功能
-- **任务**: 产品详情页开发完成
-- **状态**: ✅ Phase 2 基础完成
+- **阶段**: Phase 2 - 产品功能增强
+- **任务**: 产品详情页 Landing Page 风格重构完成
+- **状态**: ✅ Phase 2 增强完成
 - **线上地址**: https://claude-luxehome.netlify.app/nz
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-22 - 产品详情页 Landing Page 重构
+
+**任务**: 参考 Skylight 网站重构产品页面为完整 Landing Page
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 创建 NotificationBar 组件（顶部促销栏）
+- [x] 重构产品页为 Landing Page 风格
+- [x] 添加 SAVE 折扣标签
+- [x] 添加 Verified Buyers 评分标识
+- [x] 添加 In Stock - Ready to Ship 库存状态
+- [x] 增强 Trust Badges（4个信任徽章）
+- [x] 添加日历同步图标（Google/iCloud/Outlook/Yahoo/Cozi）
+- [x] 创建 Guarantee Banner（30天退款 + 2年保修）
+- [x] 创建 "Why Families Love It" 功能展示区（带图标）
+- [x] 创建客户评价区（3个评价卡片）
+- [x] 改进 FAQ 为 Q&A 格式
+- [x] 创建 Final CTA 区域（深色背景 + 金色按钮）
+
+**新增文件**:
+- `src/components/layout/NotificationBar.tsx` - 顶部通知栏组件
+
+**修改文件**:
+- `src/app/(frontend)/[region]/layout.tsx` - 添加 NotificationBar
+- `src/app/(frontend)/[region]/p/[slug]/page.tsx` - 完整重构为 Landing Page
+
+**部署信息**:
+- Commit: main@279a3aa
+- 部署时间: 2026-01-22 3:48 PM
+- 构建时间: 1m 21s
+
+**已知问题**:
+- [ ] NotificationBar 可能被固定 Header 遮挡（布局调整）
+
+**下一步**:
+- [ ] 修复 NotificationBar 布局问题
+- [ ] 添加更多产品数据
+- [ ] 配置 Netlify 环境变量启用 Admin 后台
+
+---
+
+### 2026-01-22 - 产品图片本地化
+
+**任务**: 下载 Amazon 图片到本地
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 下载 Smart Digital Calendar 8张图片
+- [x] 下载 Mini Arcade Machine 7张图片
+- [x] 更新 products.ts 使用本地图片路径
+- [x] 部署到 Netlify
+
+**新增文件**:
+- `public/images/products/smart-digital-calendar/` - 8张图片
+- `public/images/products/mini-arcade-machine/` - 7张图片
+
+**部署信息**:
+- Commit: main@91e5fd7
+- 部署时间: 2026-01-22 3:04 PM
+
+---
 
 ### 2026-01-22 - 产品详情页开发
 
@@ -34,15 +96,6 @@
 
 **修改文件**:
 - `src/app/(frontend)/[region]/page.tsx` - 首页使用真实产品数据
-
-**已知问题**:
-- [ ] Amazon 图片防盗链导致部分图片无法加载
-- [ ] 需要将图片下载到本地或 CDN 托管
-
-**下一步**:
-- [ ] 解决图片托管问题
-- [ ] 配置 Netlify 环境变量启用 Admin 后台
-- [ ] 添加更多产品
 
 ---
 

@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getRegion, validRegions, RegionCode } from '@/lib/regions'
 import { getProductBySlug, getAllProducts } from '@/data/products'
+import { getReviewsByProductId, getAverageRating, getReviewCount } from '@/data/reviews'
+import { ReviewSection } from '@/components/reviews/ReviewSection'
 
 interface PageProps {
   params: Promise<{ region: string; slug: string }>
@@ -113,30 +115,6 @@ function CalendarSyncIcons() {
   )
 }
 
-// Testimonial Card
-function TestimonialCard({
-  quote,
-  author,
-  role,
-  rating
-}: {
-  quote: string
-  author: string
-  role: string
-  rating: number
-}) {
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-sm border border-border">
-      <StarRating rating={rating} size="sm" />
-      <p className="mt-4 text-text-light italic">&ldquo;{quote}&rdquo;</p>
-      <div className="mt-4">
-        <p className="font-semibold text-primary">{author}</p>
-        <p className="text-sm text-text-muted">{role}</p>
-      </div>
-    </div>
-  )
-}
-
 export default async function ProductPage({ params }: PageProps) {
   const { region, slug } = await params
   const product = getProductBySlug(slug)
@@ -149,27 +127,10 @@ export default async function ProductPage({ params }: PageProps) {
   const price = product.prices[region as RegionCode]
   const relatedProducts = getAllProducts().filter((p) => p.id !== product.id).slice(0, 4)
 
-  // Sample testimonials - in real app, these would come from product data
-  const testimonials = [
-    {
-      quote: "This has completely transformed how our family organizes. No more missed appointments or forgotten activities!",
-      author: "Sarah M.",
-      role: "Busy Mom of 3",
-      rating: 5,
-    },
-    {
-      quote: "Finally, a calendar the whole family actually uses. The kids love checking their tasks and we love the photo frame feature.",
-      author: "Michael T.",
-      role: "Father & Remote Worker",
-      rating: 5,
-    },
-    {
-      quote: "Worth every penny. The sync with our existing calendars was seamless and now everyone knows what's happening.",
-      author: "Jennifer L.",
-      role: "Working Parent",
-      rating: 5,
-    },
-  ]
+  // Get reviews data
+  const reviews = getReviewsByProductId(product.id)
+  const averageRating = getAverageRating(product.id)
+  const reviewCount = getReviewCount(product.id)
 
   // Product-specific FAQ
   const productFAQ = [
@@ -463,33 +424,14 @@ export default async function ProductPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Social Proof / Testimonials */}
-      <section className="section bg-white">
-        <div className="container">
-          <div className="text-center mb-12">
-            <div className="gold-line mx-auto mb-4" />
-            <h2 className="font-display text-display-md text-primary">What Our Customers Say</h2>
-            <div className="flex items-center justify-center gap-2 mt-4">
-              <StarRating rating={5} size="lg" />
-              <span className="text-lg text-text-light">
-                {product.rating} average from {product.reviewCount.toLocaleString()}+ reviews
-              </span>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} {...testimonial} />
-            ))}
-          </div>
-
-          <div className="text-center mt-8">
-            <p className="text-sm text-text-muted">
-              Verified reviews from real customers
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Customer Reviews */}
+      <ReviewSection
+        reviews={reviews}
+        productId={product.id}
+        productName={product.name}
+        averageRating={averageRating}
+        totalReviews={reviewCount}
+      />
 
       {/* Specifications */}
       <section className="section bg-cream">

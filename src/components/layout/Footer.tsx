@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { RegionCode, getRegion } from '@/lib/regions'
+import { siteConfig } from '@/lib/config'
 
 interface FooterProps {
   region: RegionCode
@@ -42,9 +43,23 @@ export function Footer({ region }: FooterProps) {
             <p className="text-white/70 mb-6">
               Subscribe for exclusive offers and new product updates.
             </p>
-            <form className="flex gap-2">
+            <form
+              name="newsletter"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              className="flex gap-2"
+            >
+              <input type="hidden" name="form-name" value="newsletter" />
+              <p className="hidden">
+                <label>
+                  Don&apos;t fill this out: <input name="bot-field" />
+                </label>
+              </p>
               <input
                 type="email"
+                name="email"
+                required
                 placeholder="Enter your email"
                 className="flex-1 px-4 py-3 bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-accent"
               />
@@ -129,6 +144,17 @@ export function Footer({ region }: FooterProps) {
                   </Link>
                 </li>
               ))}
+              <li className="pt-2 border-t border-white/10 mt-2">
+                <a
+                  href={`mailto:${siteConfig.support.email}`}
+                  className="text-sm text-white/70 hover:text-accent transition-colors flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  {siteConfig.support.email}
+                </a>
+              </li>
             </ul>
           </div>
 

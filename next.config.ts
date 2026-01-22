@@ -1,22 +1,9 @@
 import type { NextConfig } from 'next'
-import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
-  // Enable static exports for SEO optimization
-  output: 'standalone',
-
   // Image optimization
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.supabase.co',
-      },
-      {
-        protocol: 'https',
-        hostname: 'm.media-amazon.com',
-      },
-    ],
+    unoptimized: true, // For static export
   },
 
   // Experimental features
@@ -25,4 +12,4 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default withPayload(nextConfig)
+export default nextConfig
