@@ -2,12 +2,51 @@
 
 ## 当前状态
 - **阶段**: Phase 1 - 基础框架
-- **任务**: 首页开发完成，准备测试
-- **状态**: ✅ Phase 1 基本完成
+- **任务**: Netlify 部署完成
+- **状态**: ✅ Phase 1 完成并部署
+- **线上地址**: https://chipper-caramel-1a4b15.netlify.app/au
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-22 - Netlify 部署完成
+
+**任务**: 部署到 Netlify
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 修复 Payload CMS admin layout serverFunction 错误
+- [x] 创建 server actions 文件 (src/app/(admin)/actions.ts)
+- [x] 初始化 Git 仓库
+- [x] 推送代码到 GitHub (derek33808/claude-luxehome)
+- [x] 连接 Netlify 到 GitHub 仓库
+- [x] 自动部署成功
+
+**部署信息**:
+- GitHub 仓库: https://github.com/derek33808/claude-luxehome
+- Netlify 项目: chipper-caramel-1a4b15
+- 线上地址: https://chipper-caramel-1a4b15.netlify.app
+- 构建时间: 1m 36s
+- 部署时间: 2026-01-22 2:20 PM
+
+**已验证功能**:
+- [x] 首页 Hero 区域正常显示
+- [x] 分类卡片（Kitchen/Outdoor/Tech/Lifestyle）正常
+- [x] 精选产品区域显示正常
+- [x] FAQ 区域显示 Australia 特定内容
+- [x] Header 导航和地区切换器正常
+- [x] 多地区路由 (/au, /nz, /us) 正常
+- [ ] Footer 未显示（需要检查样式问题）
+
+**下一步**:
+- [ ] 修复 Footer 显示问题
+- [ ] 在 Netlify 配置环境变量 (DATABASE_URL, PAYLOAD_SECRET)
+- [ ] 测试 Payload Admin 后台 (/admin)
+- [ ] 开发产品详情页
+- [ ] 添加实际产品数据
+
+---
 
 ### 2026-01-22 - Phase 1 基础框架开发
 
@@ -89,11 +128,11 @@
 | 项目规划完成 | 2026-01-22 | ✅ 完成 |
 | 基础框架搭建 | 2026-01-22 | ✅ 完成 |
 | 首页开发 | 2026-01-22 | ✅ 完成 |
+| Netlify 部署 | 2026-01-22 | ✅ 完成 |
 | 产品功能开发 | - | ⏳ 待开始 |
 | 购物功能开发 | - | ⏳ 待开始 |
 | 博客系统开发 | - | ⏳ 待开始 |
-| Netlify 部署 | - | ⏳ 待开始 |
-| 上线发布 | - | ⏳ 待开始 |
+| 自定义域名 | - | ⏳ 待开始 |
 
 ---
 
