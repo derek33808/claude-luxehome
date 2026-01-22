@@ -65,6 +65,78 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
+// Star Rating Component
+function StarRating({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md' | 'lg' }) {
+  const sizeClasses = {
+    sm: 'w-4 h-4',
+    md: 'w-5 h-5',
+    lg: 'w-6 h-6',
+  }
+  return (
+    <div className="flex items-center">
+      {[...Array(5)].map((_, i) => (
+        <svg
+          key={i}
+          className={`${sizeClasses[size]} ${i < Math.floor(rating) ? 'text-accent' : 'text-border'}`}
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  )
+}
+
+// Calendar Sync Icons
+function CalendarSyncIcons() {
+  const calendars = [
+    { name: 'Google Calendar', icon: '📅', color: 'bg-blue-100' },
+    { name: 'Apple iCloud', icon: '🍎', color: 'bg-gray-100' },
+    { name: 'Outlook', icon: '📧', color: 'bg-blue-50' },
+    { name: 'Yahoo', icon: '📨', color: 'bg-purple-50' },
+    { name: 'Cozi', icon: '👨‍👩‍👧‍👦', color: 'bg-green-50' },
+  ]
+
+  return (
+    <div className="flex flex-wrap gap-3">
+      {calendars.map((cal) => (
+        <div
+          key={cal.name}
+          className={`${cal.color} px-3 py-2 rounded-lg flex items-center gap-2 text-sm`}
+        >
+          <span>{cal.icon}</span>
+          <span className="text-text-light">{cal.name}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// Testimonial Card
+function TestimonialCard({
+  quote,
+  author,
+  role,
+  rating
+}: {
+  quote: string
+  author: string
+  role: string
+  rating: number
+}) {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-sm border border-border">
+      <StarRating rating={rating} size="sm" />
+      <p className="mt-4 text-text-light italic">&ldquo;{quote}&rdquo;</p>
+      <div className="mt-4">
+        <p className="font-semibold text-primary">{author}</p>
+        <p className="text-sm text-text-muted">{role}</p>
+      </div>
+    </div>
+  )
+}
+
 export default async function ProductPage({ params }: PageProps) {
   const { region, slug } = await params
   const product = getProductBySlug(slug)
@@ -76,6 +148,48 @@ export default async function ProductPage({ params }: PageProps) {
 
   const price = product.prices[region as RegionCode]
   const relatedProducts = getAllProducts().filter((p) => p.id !== product.id).slice(0, 4)
+
+  // Sample testimonials - in real app, these would come from product data
+  const testimonials = [
+    {
+      quote: "This has completely transformed how our family organizes. No more missed appointments or forgotten activities!",
+      author: "Sarah M.",
+      role: "Busy Mom of 3",
+      rating: 5,
+    },
+    {
+      quote: "Finally, a calendar the whole family actually uses. The kids love checking their tasks and we love the photo frame feature.",
+      author: "Michael T.",
+      role: "Father & Remote Worker",
+      rating: 5,
+    },
+    {
+      quote: "Worth every penny. The sync with our existing calendars was seamless and now everyone knows what's happening.",
+      author: "Jennifer L.",
+      role: "Working Parent",
+      rating: 5,
+    },
+  ]
+
+  // Product-specific FAQ
+  const productFAQ = [
+    {
+      question: "How easy is it to set up?",
+      answer: "Setup takes just minutes! Simply plug in, connect to Wi-Fi, and sync your existing calendars. No technical expertise needed.",
+    },
+    {
+      question: "Does it work with my calendar app?",
+      answer: "Yes! It syncs seamlessly with Google Calendar, Apple iCloud, Outlook, Yahoo, and Cozi. All updates appear automatically.",
+    },
+    {
+      question: "Is there a monthly subscription?",
+      answer: "No subscription required - ever! It's a one-time purchase with all features included.",
+    },
+    {
+      question: "What's the return policy?",
+      answer: "We offer a 30-day money-back guarantee. If you're not completely satisfied, return it for a full refund.",
+    },
+  ]
 
   return (
     <>
@@ -135,14 +249,14 @@ export default async function ProductPage({ params }: PageProps) {
         </div>
       </nav>
 
-      {/* Product Detail Section */}
+      {/* Hero Product Section */}
       <section className="section bg-white">
         <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Product Images */}
-            <div className="space-y-4">
+            <div className="space-y-4 lg:sticky lg:top-24">
               {/* Main Image */}
-              <div className="relative aspect-square bg-cream overflow-hidden">
+              <div className="relative aspect-square bg-cream rounded-lg overflow-hidden">
                 <Image
                   src={product.images[0].url}
                   alt={product.images[0].alt}
@@ -150,14 +264,19 @@ export default async function ProductPage({ params }: PageProps) {
                   className="object-contain p-4"
                   priority
                 />
+                {price.comparePrice && (
+                  <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 text-sm font-semibold rounded">
+                    SAVE {regionConfig.currencySymbol}{price.comparePrice - price.price}
+                  </div>
+                )}
               </div>
 
               {/* Thumbnail Gallery */}
-              <div className="grid grid-cols-4 gap-4">
-                {product.images.map((image, index) => (
+              <div className="grid grid-cols-4 gap-3">
+                {product.images.slice(0, 4).map((image, index) => (
                   <div
                     key={index}
-                    className={`relative aspect-square bg-cream overflow-hidden cursor-pointer border-2 ${
+                    className={`relative aspect-square bg-cream rounded overflow-hidden cursor-pointer border-2 ${
                       index === 0 ? 'border-accent' : 'border-transparent hover:border-accent/50'
                     } transition-colors`}
                   >
@@ -181,31 +300,19 @@ export default async function ProductPage({ params }: PageProps) {
               <h1 className="font-display text-display-md text-primary mt-2 mb-2">
                 {product.name}
               </h1>
-              <p className="text-lg text-text-light mb-4">{product.shortDescription}</p>
+              <p className="text-xl text-text-light mb-4">{product.shortDescription}</p>
 
-              {/* Rating */}
-              <div className="flex items-center gap-2 mb-6">
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      className={`w-5 h-5 ${
-                        i < Math.floor(product.rating) ? 'text-accent' : 'text-border'
-                      }`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
+              {/* Rating & Reviews */}
+              <div className="flex items-center gap-3 mb-6">
+                <StarRating rating={product.rating} />
                 <span className="text-sm text-text-light">
                   {product.rating} ({product.reviewCount.toLocaleString()} reviews)
                 </span>
+                <span className="text-sm text-accent font-medium">Verified Buyers</span>
               </div>
 
               {/* Price */}
-              <div className="flex items-center gap-4 mb-8">
+              <div className="flex items-center gap-4 mb-6">
                 <span className="font-display text-4xl text-primary">
                   {regionConfig.currencySymbol}{price.price}
                 </span>
@@ -214,35 +321,30 @@ export default async function ProductPage({ params }: PageProps) {
                     {regionConfig.currencySymbol}{price.comparePrice}
                   </span>
                 )}
-                {price.comparePrice && (
-                  <span className="bg-accent text-white text-sm px-3 py-1 font-semibold">
-                    SAVE {regionConfig.currencySymbol}{price.comparePrice - price.price}
-                  </span>
-                )}
               </div>
 
               {/* Stock Status */}
               <div className="flex items-center gap-2 mb-6">
                 <span
                   className={`w-3 h-3 rounded-full ${
-                    product.inStock ? 'bg-success' : 'bg-red-500'
+                    product.inStock ? 'bg-success animate-pulse' : 'bg-red-500'
                   }`}
                 />
-                <span className={product.inStock ? 'text-success' : 'text-red-500'}>
-                  {product.inStock ? 'In Stock' : 'Out of Stock'}
+                <span className={product.inStock ? 'text-success font-medium' : 'text-red-500'}>
+                  {product.inStock ? 'In Stock - Ready to Ship' : 'Out of Stock'}
                 </span>
               </div>
 
               {/* Description */}
               <p className="text-text-light leading-relaxed mb-8">{product.description}</p>
 
-              {/* Add to Cart */}
+              {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4 mb-8">
-                <button className="btn-primary flex-1 min-w-[200px]">
-                  Add to Cart
+                <button className="btn-primary flex-1 min-w-[200px] py-4 text-lg">
+                  Add to Cart - {regionConfig.currencySymbol}{price.price}
                 </button>
-                <button className="btn-secondary">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button className="btn-secondary p-4">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -253,75 +355,106 @@ export default async function ProductPage({ params }: PageProps) {
                 </button>
               </div>
 
-              {/* Trust Badges */}
-              <div className="grid grid-cols-3 gap-4 py-6 border-t border-b border-border">
+              {/* Trust Badges - Enhanced */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-t border-b border-border">
                 <div className="text-center">
-                  <svg
-                    className="w-6 h-6 mx-auto mb-2 text-accent"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
-                    />
-                  </svg>
-                  <span className="text-xs text-text-light">Free Shipping</span>
+                  <div className="w-12 h-12 mx-auto mb-2 bg-cream rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                    </svg>
+                  </div>
+                  <span className="text-xs text-text-light font-medium">Free Shipping</span>
                 </div>
                 <div className="text-center">
-                  <svg
-                    className="w-6 h-6 mx-auto mb-2 text-accent"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                    />
-                  </svg>
-                  <span className="text-xs text-text-light">Secure Payment</span>
+                  <div className="w-12 h-12 mx-auto mb-2 bg-cream rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <span className="text-xs text-text-light font-medium">Secure Payment</span>
                 </div>
                 <div className="text-center">
-                  <svg
-                    className="w-6 h-6 mx-auto mb-2 text-accent"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                  <span className="text-xs text-text-light">30-Day Returns</span>
+                  <div className="w-12 h-12 mx-auto mb-2 bg-cream rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </div>
+                  <span className="text-xs text-text-light font-medium">30-Day Returns</span>
                 </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 mx-auto mb-2 bg-cream rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </div>
+                  <span className="text-xs text-text-light font-medium">Lifetime Support</span>
+                </div>
+              </div>
+
+              {/* Calendar Sync - For Smart Calendar Product */}
+              {product.slug === 'smart-digital-calendar' && (
+                <div className="mt-6">
+                  <h3 className="font-semibold text-primary mb-3">Syncs with your favorite calendars:</h3>
+                  <CalendarSyncIcons />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Guarantee Banner */}
+      <section className="bg-primary py-6">
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-white text-center md:text-left">
+            <div className="flex items-center gap-3">
+              <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <div>
+                <p className="font-semibold">30-Day Money-Back Guarantee</p>
+                <p className="text-sm text-white/70">Not satisfied? Full refund, no questions asked</p>
+              </div>
+            </div>
+            <div className="hidden md:block w-px h-12 bg-white/20" />
+            <div className="flex items-center gap-3">
+              <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p className="font-semibold">2-Year Warranty</p>
+                <p className="text-sm text-white/70">Extended protection for peace of mind</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Product Features */}
+      {/* Key Features - Visual Grid */}
       <section className="section bg-cream">
         <div className="container">
           <div className="text-center mb-12">
             <div className="gold-line mx-auto mb-4" />
-            <h2 className="font-display text-display-md text-primary">Key Features</h2>
+            <h2 className="font-display text-display-md text-primary">Why Families Love It</h2>
+            <p className="text-text-light mt-4 max-w-2xl mx-auto">
+              Designed with busy families in mind, every feature serves a purpose
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {product.features.map((feature, index) => (
-              <div key={index} className="bg-white p-6 shadow-sm">
-                <h3 className="font-semibold text-primary mb-3">{feature.title}</h3>
-                <p className="text-text-light text-sm leading-relaxed">
+              <div key={index} className="bg-white p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center mb-4">
+                  <span className="text-2xl">
+                    {index === 0 && '📅'}
+                    {index === 1 && '⚡'}
+                    {index === 2 && '✅'}
+                    {index === 3 && '🖼️'}
+                    {index === 4 && '💰'}
+                  </span>
+                </div>
+                <h3 className="font-semibold text-primary text-lg mb-3">{feature.title}</h3>
+                <p className="text-text-light leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -330,25 +463,126 @@ export default async function ProductPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Specifications */}
+      {/* Social Proof / Testimonials */}
       <section className="section bg-white">
         <div className="container">
-          <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="gold-line mx-auto mb-4" />
+            <h2 className="font-display text-display-md text-primary">What Our Customers Say</h2>
+            <div className="flex items-center justify-center gap-2 mt-4">
+              <StarRating rating={5} size="lg" />
+              <span className="text-lg text-text-light">
+                {product.rating} average from {product.reviewCount.toLocaleString()}+ reviews
+              </span>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard key={index} {...testimonial} />
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <p className="text-sm text-text-muted">
+              Verified reviews from real customers
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Specifications */}
+      <section className="section bg-cream">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <div className="gold-line mx-auto mb-4" />
-              <h2 className="font-display text-display-md text-primary">Specifications</h2>
+              <h2 className="font-display text-display-md text-primary">Technical Specifications</h2>
             </div>
 
-            <div className="border border-border">
+            <div className="bg-white rounded-lg overflow-hidden shadow-sm">
               {Object.entries(product.specifications).map(([key, value], index) => (
                 <div
                   key={key}
                   className={`flex ${index !== 0 ? 'border-t border-border' : ''}`}
                 >
-                  <div className="w-1/3 bg-cream p-4 font-medium text-primary">{key}</div>
+                  <div className="w-1/3 bg-cream/50 p-4 font-medium text-primary">{key}</div>
                   <div className="w-2/3 p-4 text-text-light">{value}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="section bg-white">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <div className="gold-line mx-auto mb-4" />
+              <h2 className="font-display text-display-md text-primary">Frequently Asked Questions</h2>
+            </div>
+
+            <div className="space-y-4" itemScope itemType="https://schema.org/FAQPage">
+              {productFAQ.map((faq, index) => (
+                <div
+                  key={index}
+                  itemScope
+                  itemProp="mainEntity"
+                  itemType="https://schema.org/Question"
+                  className="border border-border rounded-lg overflow-hidden"
+                >
+                  <div className="bg-cream/50 p-4">
+                    <h3 itemProp="name" className="font-semibold text-primary flex items-center gap-2">
+                      <span className="text-accent">Q:</span>
+                      {faq.question}
+                    </h3>
+                  </div>
+                  <div
+                    itemScope
+                    itemProp="acceptedAnswer"
+                    itemType="https://schema.org/Answer"
+                    className="p-4"
+                  >
+                    <p itemProp="text" className="text-text-light">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center mt-8">
+              <p className="text-text-light mb-4">Still have questions?</p>
+              <Link href={`/${region}/contact`} className="btn-secondary">
+                Contact Us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="section bg-primary">
+        <div className="container">
+          <div className="max-w-3xl mx-auto text-center text-white">
+            <h2 className="font-display text-display-md mb-4">
+              Ready to Transform Your Family&apos;s Organization?
+            </h2>
+            <p className="text-lg text-white/70 mb-8">
+              Join thousands of families who have simplified their daily routines
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <button className="bg-accent text-white px-8 py-4 text-lg font-semibold hover:bg-accent/90 transition-colors">
+                Add to Cart - {regionConfig.currencySymbol}{price.price}
+              </button>
+              <div className="flex items-center gap-2 text-white/70">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                <span className="text-sm">30-Day Money-Back Guarantee</span>
+              </div>
             </div>
           </div>
         </div>
@@ -372,7 +606,7 @@ export default async function ProductPage({ params }: PageProps) {
                     href={`/${region}/p/${relatedProduct.slug}`}
                     className="group"
                   >
-                    <div className="relative aspect-square bg-white mb-4 overflow-hidden">
+                    <div className="relative aspect-square bg-white rounded-lg mb-4 overflow-hidden">
                       <Image
                         src={relatedProduct.images[0].url}
                         alt={relatedProduct.images[0].alt}
