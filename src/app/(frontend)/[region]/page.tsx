@@ -233,6 +233,91 @@ export default async function HomePage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Best Sellers Section */}
+      <section className="section bg-white">
+        <div className="container">
+          <div className="text-center mb-12">
+            <div className="gold-line mx-auto mb-4" />
+            <h2 className="font-display text-display-md text-primary">
+              Best Sellers
+            </h2>
+            <p className="text-text-light mt-4">Our most popular products loved by customers</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Product 1 */}
+            <Link href={`/${region}/p/smart-digital-calendar`} className="group">
+              <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-slow group-hover:scale-105"
+                  style={{ backgroundImage: 'url(https://m.media-amazon.com/images/I/61CBS64TYsL.jpg)' }}
+                />
+              </div>
+              <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">Smart Digital Calendar</h3>
+              <p className="text-sm text-text-light mb-2">15.6&quot; Family Organizer</p>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">{regionConfig.currencySymbol}229</span>
+                <span className="text-sm text-text-muted line-through">{regionConfig.currencySymbol}299</span>
+              </div>
+            </Link>
+
+            {/* Product 2 */}
+            <Link href={`/${region}/p/smart-thermostat`} className="group">
+              <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-slow group-hover:scale-105"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=600&fit=crop)' }}
+                />
+              </div>
+              <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">Smart Thermostat Pro</h3>
+              <p className="text-sm text-text-light mb-2">Energy-Saving Climate Control</p>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">{regionConfig.currencySymbol}189</span>
+                <span className="text-sm text-text-muted line-through">{regionConfig.currencySymbol}249</span>
+              </div>
+            </Link>
+
+            {/* Product 3 */}
+            <Link href={`/${region}/p/wireless-security-camera`} className="group">
+              <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-slow group-hover:scale-105"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=600&fit=crop)' }}
+                />
+              </div>
+              <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">Wireless Security Camera</h3>
+              <p className="text-sm text-text-light mb-2">4K HD Night Vision</p>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">{regionConfig.currencySymbol}149</span>
+                <span className="text-sm text-text-muted line-through">{regionConfig.currencySymbol}199</span>
+              </div>
+            </Link>
+
+            {/* Product 4 */}
+            <Link href={`/${region}/p/smart-doorbell`} className="group">
+              <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-slow group-hover:scale-105"
+                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop)' }}
+                />
+              </div>
+              <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">Smart Video Doorbell</h3>
+              <p className="text-sm text-text-light mb-2">2-Way Audio, Motion Alerts</p>
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">{regionConfig.currencySymbol}129</span>
+                <span className="text-sm text-text-muted line-through">{regionConfig.currencySymbol}179</span>
+              </div>
+            </Link>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href={`/${region}/products`} className="btn-secondary">
+              View All Products
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Brand Story Section */}
       <section className="section bg-primary text-white">
         <div className="container">
@@ -255,6 +340,50 @@ export default async function HomePage({ params }: PageProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="section bg-cream">
+        <div className="container">
+          <div className="text-center mb-12">
+            <div className="gold-line mx-auto mb-4" />
+            <h2 className="font-display text-display-md text-primary">
+              Why Choose Luxehome
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-primary mb-3">Premium Quality</h3>
+              <p className="text-text-light">Every product is carefully vetted for quality, durability, and design excellence.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8 4-8-4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-primary mb-3">Free Shipping</h3>
+              <p className="text-text-light">Enjoy free standard shipping on all orders over {regionConfig.currencySymbol}100.</p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-6 bg-primary rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-primary mb-3">30-Day Returns</h3>
+              <p className="text-text-light">Not satisfied? Return within 30 days for a full refund. No questions asked.</p>
+            </div>
           </div>
         </div>
       </section>

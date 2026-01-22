@@ -44,7 +44,7 @@ export const regions: Record<RegionCode, RegionConfig> = {
   },
 }
 
-export const defaultRegion: RegionCode = 'au'
+export const defaultRegion: RegionCode = 'nz'
 
 export const validRegions = Object.keys(regions) as RegionCode[]
 
