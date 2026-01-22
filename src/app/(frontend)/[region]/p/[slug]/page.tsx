@@ -6,6 +6,7 @@ import { getRegion, validRegions, RegionCode } from '@/lib/regions'
 import { getProductBySlug, getAllProducts } from '@/data/products'
 import { getReviewsByProductId, getAverageRating, getReviewCount } from '@/data/reviews'
 import { ReviewSection } from '@/components/reviews/ReviewSection'
+import { ProductActions } from '@/components/product/ProductActions'
 
 interface PageProps {
   params: Promise<{ region: string; slug: string }>
@@ -300,21 +301,12 @@ export default async function ProductPage({ params }: PageProps) {
               <p className="text-text-light leading-relaxed mb-8">{product.description}</p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4 mb-8">
-                <button className="btn-primary flex-1 min-w-[200px] py-4 text-lg">
-                  Add to Cart - {regionConfig.currencySymbol}{price.price}
-                </button>
-                <button className="btn-secondary p-4">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                    />
-                  </svg>
-                </button>
-              </div>
+              <ProductActions
+                product={product}
+                price={price.price}
+                comparePrice={price.comparePrice}
+                currencySymbol={regionConfig.currencySymbol}
+                              />
 
               {/* Trust Badges - Enhanced */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-t border-b border-border">
@@ -516,9 +508,13 @@ export default async function ProductPage({ params }: PageProps) {
               Join thousands of families who have simplified their daily routines
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button className="bg-accent text-white px-8 py-4 text-lg font-semibold hover:bg-accent/90 transition-colors">
-                Add to Cart - {regionConfig.currencySymbol}{price.price}
-              </button>
+              <ProductActions
+                product={product}
+                price={price.price}
+                comparePrice={price.comparePrice}
+                currencySymbol={regionConfig.currencySymbol}
+                                variant="final-cta"
+              />
               <div className="flex items-center gap-2 text-white/70">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />

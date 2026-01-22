@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { RegionCode, regions, getRegion } from '@/lib/regions'
+import { CartButton } from '@/components/cart'
 
 interface HeaderProps {
   region: RegionCode
@@ -93,16 +94,7 @@ export function Header({ region }: HeaderProps) {
             </button>
 
             {/* Cart */}
-            <button
-              className="p-2 text-text-light hover:text-primary transition-colors relative"
-              aria-label="Cart"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              {/* Cart count badge */}
-              {/* <span className="absolute -top-1 -right-1 w-4 h-4 bg-accent text-white text-xs rounded-full flex items-center justify-center">0</span> */}
-            </button>
+            <CartButton />
 
             {/* Mobile Menu Toggle */}
             <button
