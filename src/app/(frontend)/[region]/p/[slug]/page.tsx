@@ -7,6 +7,7 @@ import { getProductBySlug, getAllProducts } from '@/data/products'
 import { getReviewsByProductId, getAverageRating, getReviewCount } from '@/data/reviews'
 import { ReviewSection } from '@/components/reviews/ReviewSection'
 import { ProductActions } from '@/components/product/ProductActions'
+import { ProductImageGallery } from '@/components/product/ProductImageGallery'
 
 interface PageProps {
   params: Promise<{ region: string; slug: string }>
@@ -216,41 +217,18 @@ export default async function ProductPage({ params }: PageProps) {
         <div className="container">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Product Images */}
-            <div className="space-y-4 lg:sticky lg:top-24">
-              {/* Main Image */}
-              <div className="relative aspect-square bg-cream rounded-lg overflow-hidden">
-                <Image
-                  src={product.images[0].url}
-                  alt={product.images[0].alt}
-                  fill
-                  className="object-contain p-4"
-                  priority
-                />
-                {price.comparePrice && (
-                  <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 text-sm font-semibold rounded">
-                    SAVE {regionConfig.currencySymbol}{price.comparePrice - price.price}
-                  </div>
-                )}
-              </div>
-
-              {/* Thumbnail Gallery */}
-              <div className="grid grid-cols-4 gap-3">
-                {product.images.slice(0, 4).map((image, index) => (
-                  <div
-                    key={index}
-                    className={`relative aspect-square bg-cream rounded overflow-hidden cursor-pointer border-2 ${
-                      index === 0 ? 'border-accent' : 'border-transparent hover:border-accent/50'
-                    } transition-colors`}
-                  >
-                    <Image
-                      src={image.url}
-                      alt={image.alt}
-                      fill
-                      className="object-contain p-2"
-                    />
-                  </div>
-                ))}
-              </div>
+            <div className="lg:sticky lg:top-24">
+              <ProductImageGallery
+                images={product.images}
+                productName={product.name}
+                saveBadge={
+                  price.comparePrice ? (
+                    <div className="absolute top-4 left-4 bg-accent text-white px-3 py-1 text-sm font-semibold rounded z-10">
+                      SAVE {regionConfig.currencySymbol}{price.comparePrice - price.price}
+                    </div>
+                  ) : undefined
+                }
+              />
             </div>
 
             {/* Product Info */}
