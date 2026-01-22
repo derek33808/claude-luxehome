@@ -1,5 +1,37 @@
 import { RegionCode } from '@/lib/regions'
 
+// Category types and info
+export type Category = 'tech' | 'lifestyle' | 'kitchen' | 'outdoor'
+
+export interface CategoryInfo {
+  name: string
+  description: string
+  icon: string
+}
+
+export const categories: Record<Category, CategoryInfo> = {
+  tech: {
+    name: 'Tech & Smart Home',
+    description: 'Smart devices and technology to simplify your daily life',
+    icon: '💻',
+  },
+  lifestyle: {
+    name: 'Lifestyle & Gifts',
+    description: 'Unique finds and thoughtful gifts for every occasion',
+    icon: '🎁',
+  },
+  kitchen: {
+    name: 'Kitchen Essentials',
+    description: 'Premium tools and gadgets for the modern kitchen',
+    icon: '🍳',
+  },
+  outdoor: {
+    name: 'Outdoor & Garden',
+    description: 'Quality gear for outdoor living and garden enthusiasts',
+    icon: '🌿',
+  },
+}
+
 export interface ProductImage {
   url: string
   alt: string
@@ -17,7 +49,7 @@ export interface Product {
   name: string
   shortDescription: string
   description: string
-  category: 'tech' | 'lifestyle' | 'kitchen' | 'outdoor'
+  category: Category
   brand: string
   images: ProductImage[]
   features: ProductFeature[]
