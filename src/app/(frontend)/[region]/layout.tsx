@@ -1,0 +1,28 @@
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
+import { isValidRegion, defaultRegion, RegionCode } from '@/lib/regions'
+import { redirect } from 'next/navigation'
+
+interface RegionLayoutProps {
+  children: React.ReactNode
+  params: Promise<{ region: string }>
+}
+
+export default async function RegionLayout({ children, params }: RegionLayoutProps) {
+  const { region } = await params
+
+  // Validate region
+  if (!isValidRegion(region)) {
+    redirect(`/${defaultRegion}`)
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Header region={region as RegionCode} />
+      <main className="flex-1 pt-20">
+        {children}
+      </main>
+      <Footer region={region as RegionCode} />
+    </div>
+  )
+}

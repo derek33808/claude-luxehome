@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Next.js on Netlify
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Environment variables will be set in Netlify dashboard
+# DATABASE_URL, PAYLOAD_SECRET, etc.
