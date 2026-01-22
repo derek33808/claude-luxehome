@@ -16,7 +16,7 @@ export const regions: Record<RegionCode, RegionConfig> = {
     code: 'au',
     name: 'Australia',
     currency: 'AUD',
-    currencySymbol: '$',
+    currencySymbol: 'AUD $',
     locale: 'en-AU',
     flag: '🇦🇺',
     taxRate: 0.10,
@@ -26,7 +26,7 @@ export const regions: Record<RegionCode, RegionConfig> = {
     code: 'nz',
     name: 'New Zealand',
     currency: 'NZD',
-    currencySymbol: '$',
+    currencySymbol: 'NZD $',
     locale: 'en-NZ',
     flag: '🇳🇿',
     taxRate: 0.15,
@@ -36,7 +36,7 @@ export const regions: Record<RegionCode, RegionConfig> = {
     code: 'us',
     name: 'United States',
     currency: 'USD',
-    currencySymbol: '$',
+    currencySymbol: 'USD $',
     locale: 'en-US',
     flag: '🇺🇸',
     taxRate: 0,
@@ -60,8 +60,5 @@ export function getRegion(code: string): RegionConfig {
 }
 
 export function formatPrice(amount: number, region: RegionConfig): string {
-  return new Intl.NumberFormat(region.locale, {
-    style: 'currency',
-    currency: region.currency,
-  }).format(amount)
+  return `${region.currencySymbol}${amount}`
 }

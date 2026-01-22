@@ -10,6 +10,27 @@
 
 ## 执行日志（按时间倒序）
 
+### 2026-01-22 - 修改产品价格和货币显示
+
+**任务**: 修改产品价格，添加货币缩写
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 修改 Smart Digital Calendar 价格：US $249, NZ $429, AU $369
+- [x] 修改 Mini Arcade Machine 价格：NZ $69, AU $59 (US 保持 $39)
+- [x] 在价格显示中添加货币缩写（AUD $、NZD $、USD $）
+- [x] 修改 currencySymbol 包含货币代码
+- [x] 更新 formatPrice 函数
+- [x] 创建 QA_REPORT.md
+
+**修改文件**:
+- `src/data/products.ts` - 更新产品价格
+- `src/lib/regions.ts` - 修改 currencySymbol 和 formatPrice
+
+**构建结果**: 50 个静态页面全部生成成功
+
+---
+
 ### 2026-01-22 17:30 - 添加所有静态页面
 
 **任务**: 为所有地区创建静态页面

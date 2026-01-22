@@ -122,9 +122,9 @@ export const products: Product[] = [
       'Subscription': 'None Required',
     },
     prices: {
-      au: { price: 349, comparePrice: 449 },
-      nz: { price: 379, comparePrice: 479 },
-      us: { price: 229, comparePrice: 299 },
+      au: { price: 369, comparePrice: 449 },
+      nz: { price: 429, comparePrice: 499 },
+      us: { price: 249, comparePrice: 299 },
     },
     inStock: true,
     rating: 5.0,
@@ -192,7 +192,7 @@ export const products: Product[] = [
     },
     prices: {
       au: { price: 59, comparePrice: 79 },
-      nz: { price: 65, comparePrice: 85 },
+      nz: { price: 69, comparePrice: 89 },
       us: { price: 39, comparePrice: 49 },
     },
     inStock: true,
