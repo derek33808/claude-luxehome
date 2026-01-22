@@ -10,6 +10,38 @@
 
 ## 执行日志（按时间倒序）
 
+### 2026-01-22 - 丰富电子日程表产品信息
+
+**任务**: 从 Amazon 获取完整产品信息，添加颜色变体和更多图片
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 访问 Amazon 产品页获取完整信息
+- [x] 获取3种颜色变体：White Frame, Grey Frame, Snow White Frame
+- [x] 下载所有高清产品图片（White: 8张, Grey: 1张, Snow White: 1张）
+- [x] 添加 ColorVariant 接口支持颜色变体
+- [x] 更新产品数据：更多图片、详细规格、特性图标
+- [x] 添加库存数量显示
+
+**新增文件**:
+- `public/images/products/smart-digital-calendar/white/` - 8张图片
+- `public/images/products/smart-digital-calendar/grey/main.jpg`
+- `public/images/products/smart-digital-calendar/snow-white/main.jpg`
+
+**修改文件**:
+- `src/data/products.ts` - 添加 ColorVariant 接口，丰富产品数据
+
+**产品更新内容**:
+- 7张高清产品图片（White Frame）
+- 3种颜色变体可选
+- 6个功能特性（带图标）
+- 12项技术规格
+- 更详细的产品描述
+
+**构建结果**: 50 个静态页面全部生成成功
+
+---
+
 ### 2026-01-22 - 修改产品价格和货币显示
 
 **任务**: 修改产品价格，添加货币缩写
