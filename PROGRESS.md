@@ -2,13 +2,50 @@
 
 ## 当前状态
 - **阶段**: Phase 1 - 基础框架
-- **任务**: Netlify 部署完成
+- **任务**: 首页优化完成
 - **状态**: ✅ Phase 1 完成并部署
-- **线上地址**: https://chipper-caramel-1a4b15.netlify.app/au
+- **线上地址**: https://claude-luxehome.netlify.app/nz
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-22 - 首页优化和修复
+
+**任务**: 修复问题并优化首页
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 修改 Netlify 项目名称为 claude-luxehome
+- [x] 修复 Footer 显示问题（Tailwind v4 @theme 配置）
+- [x] 更改默认地区从 AU 到 NZ
+- [x] 新增 Best Sellers 区域（4 个产品卡片）
+- [x] 新增 Why Choose Us 区域（3 个特色）
+
+**部署信息**:
+- 新 Netlify URL: https://claude-luxehome.netlify.app
+- 默认地区: New Zealand (/nz)
+- 部署时间: 2026-01-22 2:32 PM
+
+**修改的文件**:
+- `src/app/globals.css` - 修复 Tailwind v4 主题配置
+- `src/lib/regions.ts` - 更改默认地区为 'nz'
+- `src/app/(frontend)/[region]/page.tsx` - 新增 Best Sellers 和 Why Choose Us
+
+**已验证功能**:
+- [x] Footer 正常显示（黑色背景、金色按钮）
+- [x] 默认跳转到 /nz（New Zealand）
+- [x] Best Sellers 显示 4 个产品
+- [x] Why Choose Us 显示 3 个特色
+- [x] FAQ 显示 NZ 特定内容
+
+**下一步**:
+- [ ] 在 Netlify 配置环境变量 (DATABASE_URL, PAYLOAD_SECRET)
+- [ ] 测试 Payload Admin 后台 (/admin)
+- [ ] 开发产品详情页
+- [ ] 添加实际产品数据
+
+---
 
 ### 2026-01-22 - Netlify 部署完成
 
@@ -25,8 +62,8 @@
 
 **部署信息**:
 - GitHub 仓库: https://github.com/derek33808/claude-luxehome
-- Netlify 项目: chipper-caramel-1a4b15
-- 线上地址: https://chipper-caramel-1a4b15.netlify.app
+- Netlify 项目: claude-luxehome (原 chipper-caramel-1a4b15)
+- 线上地址: https://claude-luxehome.netlify.app
 - 构建时间: 1m 36s
 - 部署时间: 2026-01-22 2:20 PM
 
@@ -37,14 +74,9 @@
 - [x] FAQ 区域显示 Australia 特定内容
 - [x] Header 导航和地区切换器正常
 - [x] 多地区路由 (/au, /nz, /us) 正常
-- [ ] Footer 未显示（需要检查样式问题）
+- [x] Footer 显示问题（已在后续更新中修复）
 
-**下一步**:
-- [ ] 修复 Footer 显示问题
-- [ ] 在 Netlify 配置环境变量 (DATABASE_URL, PAYLOAD_SECRET)
-- [ ] 测试 Payload Admin 后台 (/admin)
-- [ ] 开发产品详情页
-- [ ] 添加实际产品数据
+**下一步**: 见最新日志
 
 ---
 

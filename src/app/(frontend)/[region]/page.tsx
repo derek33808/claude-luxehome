@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { getRegion, isValidRegion, defaultRegion, RegionCode, validRegions } from '@/lib/regions'
+import Image from 'next/image'
+import { getRegion, RegionCode, validRegions } from '@/lib/regions'
+import { getAllProducts } from '@/data/products'
 
 interface PageProps {
   params: Promise<{ region: string }>
@@ -167,71 +169,68 @@ export default async function HomePage({ params }: PageProps) {
       </section>
 
       {/* Featured Product Section */}
-      <section className="section bg-cream">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Product Image */}
-            <div className="relative aspect-square bg-white shadow-lg">
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{
-                  backgroundImage: 'url(https://m.media-amazon.com/images/I/61CBS64TYsL.jpg)',
-                }}
-              />
-            </div>
+      {(() => {
+        const featuredProduct = getAllProducts()[0]
+        const featuredPrice = featuredProduct.prices[region as RegionCode]
+        return (
+          <section className="section bg-cream">
+            <div className="container">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Product Image */}
+                <div className="relative aspect-square bg-white shadow-lg overflow-hidden">
+                  <Image
+                    src={featuredProduct.images[0].url}
+                    alt={featuredProduct.images[0].alt}
+                    fill
+                    className="object-contain p-8"
+                  />
+                </div>
 
-            {/* Product Info */}
-            <div>
-              <div className="gold-line mb-6" />
-              <span className="text-sm text-text-muted uppercase tracking-wider">Featured Product</span>
-              <h2 className="font-display text-display-md text-primary mt-2 mb-4">
-                Smart Digital Calendar
-              </h2>
-              <p className="text-text-light leading-relaxed mb-6">
-                15.6-inch touchscreen wall planner that serves as an all-in-one family organizer.
-                Syncs with Google Calendar, iCloud, Outlook, and more. No subscription fees.
-              </p>
+                {/* Product Info */}
+                <div>
+                  <div className="gold-line mb-6" />
+                  <span className="text-sm text-text-muted uppercase tracking-wider">Featured Product</span>
+                  <h2 className="font-display text-display-md text-primary mt-2 mb-4">
+                    {featuredProduct.name}
+                  </h2>
+                  <p className="text-text-light leading-relaxed mb-6">
+                    {featuredProduct.description}
+                  </p>
 
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-3 text-text-light">
-                  <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  15.6&quot; IPS HD Touchscreen Display
-                </li>
-                <li className="flex items-center gap-3 text-text-light">
-                  <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  Wi-Fi Sync with Major Calendars
-                </li>
-                <li className="flex items-center gap-3 text-text-light">
-                  <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  No Subscription Required
-                </li>
-              </ul>
+                  <ul className="space-y-3 mb-8">
+                    {featuredProduct.features.slice(0, 3).map((feature, index) => (
+                      <li key={index} className="flex items-start gap-3 text-text-light">
+                        <svg className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        {feature.title}
+                      </li>
+                    ))}
+                  </ul>
 
-              <div className="flex items-center gap-6 mb-8">
-                <span className="font-display text-3xl text-primary">
-                  {regionConfig.currencySymbol}229
-                </span>
-                <span className="text-text-muted line-through">
-                  {regionConfig.currencySymbol}299
-                </span>
+                  <div className="flex items-center gap-6 mb-8">
+                    <span className="font-display text-3xl text-primary">
+                      {regionConfig.currencySymbol}{featuredPrice.price}
+                    </span>
+                    {featuredPrice.comparePrice && (
+                      <span className="text-text-muted line-through">
+                        {regionConfig.currencySymbol}{featuredPrice.comparePrice}
+                      </span>
+                    )}
+                  </div>
+
+                  <Link
+                    href={`/${region}/p/${featuredProduct.slug}`}
+                    className="btn-primary"
+                  >
+                    View Product
+                  </Link>
+                </div>
               </div>
-
-              <Link
-                href={`/${region}/p/smart-digital-calendar`}
-                className="btn-primary"
-              >
-                View Product
-              </Link>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+        )
+      })()}
 
       {/* Best Sellers Section */}
       <section className="section bg-white">
@@ -239,75 +238,39 @@ export default async function HomePage({ params }: PageProps) {
           <div className="text-center mb-12">
             <div className="gold-line mx-auto mb-4" />
             <h2 className="font-display text-display-md text-primary">
-              Best Sellers
+              Our Products
             </h2>
-            <p className="text-text-light mt-4">Our most popular products loved by customers</p>
+            <p className="text-text-light mt-4">Premium quality products loved by customers</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Product 1 */}
-            <Link href={`/${region}/p/smart-digital-calendar`} className="group">
-              <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-slow group-hover:scale-105"
-                  style={{ backgroundImage: 'url(https://m.media-amazon.com/images/I/61CBS64TYsL.jpg)' }}
-                />
-              </div>
-              <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">Smart Digital Calendar</h3>
-              <p className="text-sm text-text-light mb-2">15.6&quot; Family Organizer</p>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">{regionConfig.currencySymbol}229</span>
-                <span className="text-sm text-text-muted line-through">{regionConfig.currencySymbol}299</span>
-              </div>
-            </Link>
-
-            {/* Product 2 */}
-            <Link href={`/${region}/p/smart-thermostat`} className="group">
-              <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-slow group-hover:scale-105"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=600&fit=crop)' }}
-                />
-              </div>
-              <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">Smart Thermostat Pro</h3>
-              <p className="text-sm text-text-light mb-2">Energy-Saving Climate Control</p>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">{regionConfig.currencySymbol}189</span>
-                <span className="text-sm text-text-muted line-through">{regionConfig.currencySymbol}249</span>
-              </div>
-            </Link>
-
-            {/* Product 3 */}
-            <Link href={`/${region}/p/wireless-security-camera`} className="group">
-              <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-slow group-hover:scale-105"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&h=600&fit=crop)' }}
-                />
-              </div>
-              <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">Wireless Security Camera</h3>
-              <p className="text-sm text-text-light mb-2">4K HD Night Vision</p>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">{regionConfig.currencySymbol}149</span>
-                <span className="text-sm text-text-muted line-through">{regionConfig.currencySymbol}199</span>
-              </div>
-            </Link>
-
-            {/* Product 4 */}
-            <Link href={`/${region}/p/smart-doorbell`} className="group">
-              <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-slow group-hover:scale-105"
-                  style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=600&fit=crop)' }}
-                />
-              </div>
-              <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">Smart Video Doorbell</h3>
-              <p className="text-sm text-text-light mb-2">2-Way Audio, Motion Alerts</p>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold">{regionConfig.currencySymbol}129</span>
-                <span className="text-sm text-text-muted line-through">{regionConfig.currencySymbol}179</span>
-              </div>
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {getAllProducts().map((product) => {
+              const price = product.prices[region as RegionCode]
+              return (
+                <Link key={product.id} href={`/${region}/p/${product.slug}`} className="group">
+                  <div className="relative aspect-square bg-cream mb-4 overflow-hidden">
+                    <Image
+                      src={product.images[0].url}
+                      alt={product.images[0].alt}
+                      fill
+                      className="object-contain p-4 transition-transform duration-slow group-hover:scale-105"
+                    />
+                  </div>
+                  <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-sm text-text-light mb-2">{product.shortDescription}</p>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold">{regionConfig.currencySymbol}{price.price}</span>
+                    {price.comparePrice && (
+                      <span className="text-sm text-text-muted line-through">
+                        {regionConfig.currencySymbol}{price.comparePrice}
+                      </span>
+                    )}
+                  </div>
+                </Link>
+              )
+            })}
           </div>
 
           <div className="text-center mt-12">
