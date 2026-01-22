@@ -2,13 +2,83 @@
 
 ## 当前状态
 - **阶段**: Phase 3 - 纯静态站点 + 购物车
-- **任务**: 部署纯静态站点，添加购物车功能
-- **状态**: 🔄 进行中
+- **任务**: 购物车功能 + 静态页面
+- **状态**: ✅ 完成
 - **线上地址**: https://claude-luxehome.netlify.app/nz
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-22 17:30 - 添加所有静态页面
+
+**任务**: 为所有地区创建静态页面
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] About 页面 - 品牌故事和价值观
+- [x] Contact 页面 - Netlify Forms 联系表单
+- [x] FAQ 页面 - 分类折叠式问答
+- [x] Shipping 页面 - 配送信息（地区差异化）
+- [x] Returns 页面 - 退换货政策
+- [x] Privacy 页面 - 隐私政策
+- [x] Terms 页面 - 服务条款
+- [x] Blog 页面 - 博客列表（3篇示例文章）
+- [x] Category 页面 - Kitchen/Outdoor/Tech/Lifestyle
+
+**所有页面**:
+- 使用 `generateStaticParams()` 为 AU/NZ/US 生成静态页面
+- 统一设计风格（Hero + Breadcrumb + Content + CTA）
+- 表单使用 Netlify Forms
+- FAQ 使用客户端组件实现折叠交互
+
+**新增文件**:
+- `src/app/(frontend)/[region]/about/page.tsx`
+- `src/app/(frontend)/[region]/contact/page.tsx`
+- `src/app/(frontend)/[region]/faq/page.tsx`
+- `src/app/(frontend)/[region]/shipping/page.tsx`
+- `src/app/(frontend)/[region]/returns/page.tsx`
+- `src/app/(frontend)/[region]/privacy/page.tsx`
+- `src/app/(frontend)/[region]/terms/page.tsx`
+- `src/app/(frontend)/[region]/blog/page.tsx`
+- `src/app/(frontend)/[region]/[category]/page.tsx`
+- `src/components/faq/FAQAccordion.tsx`
+
+**构建结果**: 50个静态页面全部生成成功
+
+---
+
+### 2026-01-22 17:00 - 添加购物车功能
+
+**任务**: 实现 localStorage 持久化购物车
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 创建 cart.ts - 购物车状态管理 Hook
+- [x] 创建 CartProvider - Context Provider
+- [x] 创建 CartDrawer - 滑出式购物车面板
+- [x] 创建 CartButton - Header 购物车图标
+- [x] 创建 AddToCartButton - 添加商品按钮
+- [x] 创建 ProductActions - 产品页购买按钮组
+- [x] 集成 localStorage 持久化
+
+**新增文件**:
+- `src/lib/cart.ts`
+- `src/components/cart/CartProvider.tsx`
+- `src/components/cart/CartDrawer.tsx`
+- `src/components/cart/CartButton.tsx`
+- `src/components/cart/CartWrapper.tsx`
+- `src/components/cart/AddToCartButton.tsx`
+- `src/components/product/ProductActions.tsx`
+
+**功能特点**:
+- 跨页面购物车状态持久化
+- 支持多地区货币显示
+- 购物车数量徽章
+- 滑出式购物车抽屉
+- 自动计算小计和节省金额
+
+---
 
 ### 2026-01-22 16:35 - 修复 Netlify 部署配置
 

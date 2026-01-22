@@ -17,18 +17,23 @@ export const siteConfig = {
     twitter: 'https://twitter.com/luxehome',
   },
 
-  // Shipping & Returns
+  // Shipping
   shipping: {
     freeShippingThreshold: 100,
     estimatedDays: '5-7 business days',
     expressAvailable: true,
+    freeShippingMessage: 'Free Shipping on All Orders',
   },
 
+  // Returns
   returns: {
     days: 30,
+    period: 30,
     policy: 'Full refund, no questions asked',
+    guarantee: '30-Day Money-Back Guarantee',
   },
 
+  // Warranty
   warranty: {
     years: 2,
     description: 'Extended protection for peace of mind',
