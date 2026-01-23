@@ -35,9 +35,9 @@ export function Footer({ region }: FooterProps) {
 
   return (
     <footer className="text-white">
-      {/* Newsletter Section - Using slightly lighter background for visual separation */}
-      <div className="bg-[#242424]">
-        <div className="container py-24 md:py-36">
+      {/* Newsletter Section - Same background as footer, separated by gold accent line */}
+      <div className="bg-primary">
+        <div className="container pt-28 pb-24 md:pt-40 md:pb-36">
           <div className="max-w-xl mx-auto text-center">
             <h3 className="font-display text-2xl md:text-3xl mb-8">Stay Updated</h3>
             <p className="text-white/70 mb-10">
