@@ -32,7 +32,7 @@ interface CheckoutFormProps {
 
 export function CheckoutForm({ region }: CheckoutFormProps) {
   const regionConfig = getRegion(region)
-  const { cart, subtotal, savings, clearCart, isLoaded } = useCartContext()
+  const { cart, subtotal, savings, isLoaded } = useCartContext()
 
   const [formData, setFormData] = useState<FormData>({
     email: '',
@@ -47,7 +47,6 @@ export function CheckoutForm({ region }: CheckoutFormProps) {
 
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
 
   // Validation rules
   const validateEmail = (email: string): string | undefined => {
@@ -115,40 +114,49 @@ export function CheckoutForm({ region }: CheckoutFormProps) {
 
     setIsSubmitting(true)
 
-    // Simulate form submission to Netlify Forms
     try {
-      const formBody = new URLSearchParams({
-        'form-name': 'checkout',
-        ...formData,
-        region,
-        orderTotal: subtotal.toString(),
-        itemCount: cart.items.length.toString(),
-        items: JSON.stringify(cart.items.map(item => ({
-          name: item.productName,
-          quantity: item.quantity,
-          price: item.price,
-        }))),
-      })
+      // Prepare cart items for Stripe
+      const items = cart.items.map(item => ({
+        id: item.productId,
+        name: item.productName,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image,
+      }))
 
-      const response = await fetch('/', {
+      // Create checkout session via Netlify Function
+      const response = await fetch('/.netlify/functions/create-checkout-session', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formBody.toString(),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items,
+          region,
+          currency: regionConfig.currency,
+        }),
       })
 
-      if (response.ok) {
-        setIsSubmitted(true)
-        clearCart()
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to create checkout session')
+      }
+
+      const { sessionUrl } = await response.json()
+
+      // Redirect to Stripe Checkout URL
+      if (sessionUrl) {
+        window.location.href = sessionUrl
       } else {
-        throw new Error('Form submission failed')
+        throw new Error('No checkout URL received')
       }
     } catch (error) {
       console.error('Checkout error:', error)
-      alert('There was an error processing your order. Please try again.')
-    } finally {
+      alert(error instanceof Error ? error.message : 'There was an error processing your order. Please try again.')
       setIsSubmitting(false)
     }
-  }, [validateForm, formData, region, subtotal, cart.items, clearCart])
+    // Note: Don't set isSubmitting to false here if successful, as we're redirecting to Stripe
+  }, [validateForm, cart.items, region, regionConfig.currency])
 
   if (!isLoaded) {
     return (
@@ -158,24 +166,6 @@ export function CheckoutForm({ region }: CheckoutFormProps) {
     )
   }
 
-  if (isSubmitted) {
-    return (
-      <div className="max-w-lg mx-auto text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-6 bg-success/10 rounded-full flex items-center justify-center">
-          <svg className="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h2 className="font-display text-2xl text-primary mb-4">Order Submitted!</h2>
-        <p className="text-text-muted mb-6">
-          Thank you for your order. We have received your information and will be in touch shortly to confirm payment and shipping details.
-        </p>
-        <p className="text-sm text-text-light">
-          A confirmation email will be sent to <strong>{formData.email}</strong>
-        </p>
-      </div>
-    )
-  }
 
   if (cart.items.length === 0) {
     return (
