@@ -118,7 +118,7 @@ export function CartDrawer({ region }: CartDrawerProps) {
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {cart.items.map((item) => (
                   <div
-                    key={item.productId}
+                    key={item.cartItemId}
                     className="flex gap-4 p-3 bg-cream rounded-lg"
                   >
                     {/* Product Image */}
@@ -160,7 +160,7 @@ export function CartDrawer({ region }: CartDrawerProps) {
                       <div className="flex items-center gap-2 mt-2">
                         <button
                           onClick={() =>
-                            updateQuantity(item.productId, item.quantity - 1)
+                            updateQuantity(item.cartItemId, item.quantity - 1)
                           }
                           className="w-8 h-8 flex items-center justify-center border border-border rounded hover:bg-white transition-colors"
                           aria-label="Decrease quantity"
@@ -184,7 +184,7 @@ export function CartDrawer({ region }: CartDrawerProps) {
                         </span>
                         <button
                           onClick={() =>
-                            updateQuantity(item.productId, item.quantity + 1)
+                            updateQuantity(item.cartItemId, item.quantity + 1)
                           }
                           className="w-8 h-8 flex items-center justify-center border border-border rounded hover:bg-white transition-colors"
                           aria-label="Increase quantity"
@@ -204,7 +204,7 @@ export function CartDrawer({ region }: CartDrawerProps) {
                           </svg>
                         </button>
                         <button
-                          onClick={() => removeItem(item.productId)}
+                          onClick={() => removeItem(item.cartItemId)}
                           className="ml-auto p-1 text-text-muted hover:text-error transition-colors"
                           aria-label="Remove item"
                         >

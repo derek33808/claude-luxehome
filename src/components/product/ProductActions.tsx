@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useCartContext } from '@/components/cart'
-import { Product } from '@/data/products'
+import { Product, ColorVariant } from '@/data/products'
 
 interface ProductActionsProps {
   product: Product
@@ -10,6 +10,7 @@ interface ProductActionsProps {
   comparePrice?: number
   currencySymbol: string
   variant?: 'primary' | 'final-cta'
+  selectedColor?: ColorVariant
 }
 
 export function ProductActions({
@@ -18,6 +19,7 @@ export function ProductActions({
   comparePrice,
   currencySymbol,
   variant = 'primary',
+  selectedColor,
 }: ProductActionsProps) {
   const { addItem } = useCartContext()
   const [isAdding, setIsAdding] = useState(false)
@@ -28,6 +30,7 @@ export function ProductActions({
       price,
       originalPrice: comparePrice || price,
       currency: currencySymbol,
+      colorVariant: selectedColor?.name,
     })
 
     setTimeout(() => setIsAdding(false), 300)

@@ -5,6 +5,7 @@ import { Product } from '@/data/products'
 import { RegionCode } from '@/lib/regions'
 
 export interface CartItem {
+  cartItemId: string  // Unique ID for cart item (productId + colorVariant)
   productId: string
   productName: string
   productSlug: string
@@ -13,6 +14,7 @@ export interface CartItem {
   originalPrice: number
   currency: string
   image: string
+  colorVariant?: string
 }
 
 export interface Cart {
@@ -76,10 +78,20 @@ export function useCart(region: RegionCode) {
     }
   }, [cart, isLoaded])
 
+  // Generate unique cart item ID
+  const generateCartItemId = (productId: string, colorVariant?: string) => {
+    return colorVariant ? `${productId}-${colorVariant}` : productId
+  }
+
   // Add item to cart
-  const addItem = useCallback((product: Product, priceInfo: { price: number; originalPrice: number; currency: string }) => {
+  const addItem = useCallback((product: Product, priceInfo: { price: number; originalPrice: number; currency: string; colorVariant?: string }) => {
     setCart(prev => {
-      const existingIndex = prev.items.findIndex(item => item.productId === product.id)
+      const cartItemId = generateCartItemId(product.id, priceInfo.colorVariant)
+
+      // Find existing item with same cart item ID
+      const existingIndex = prev.items.findIndex(
+        item => item.cartItemId === cartItemId
+      )
 
       if (existingIndex >= 0) {
         // Update quantity
@@ -92,14 +104,18 @@ export function useCart(region: RegionCode) {
       } else {
         // Add new item
         const newItem: CartItem = {
+          cartItemId,
           productId: product.id,
-          productName: product.name,
+          productName: priceInfo.colorVariant
+            ? `${product.name} - ${priceInfo.colorVariant}`
+            : product.name,
           productSlug: product.slug,
           quantity: 1,
           price: priceInfo.price,
           originalPrice: priceInfo.originalPrice,
           currency: priceInfo.currency,
           image: product.images[0].url,
+          colorVariant: priceInfo.colorVariant,
         }
         return { ...prev, items: [...prev.items, newItem] }
       }
@@ -107,24 +123,24 @@ export function useCart(region: RegionCode) {
   }, [])
 
   // Remove item from cart
-  const removeItem = useCallback((productId: string) => {
+  const removeItem = useCallback((cartItemId: string) => {
     setCart(prev => ({
       ...prev,
-      items: prev.items.filter(item => item.productId !== productId),
+      items: prev.items.filter(item => item.cartItemId !== cartItemId),
     }))
   }, [])
 
   // Update item quantity
-  const updateQuantity = useCallback((productId: string, quantity: number) => {
+  const updateQuantity = useCallback((cartItemId: string, quantity: number) => {
     if (quantity <= 0) {
-      removeItem(productId)
+      removeItem(cartItemId)
       return
     }
 
     setCart(prev => ({
       ...prev,
       items: prev.items.map(item =>
-        item.productId === productId ? { ...item, quantity } : item
+        item.cartItemId === cartItemId ? { ...item, quantity } : item
       ),
     }))
   }, [removeItem])

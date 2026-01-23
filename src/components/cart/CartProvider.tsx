@@ -12,7 +12,7 @@ interface CartContextType {
   openCart: () => void
   closeCart: () => void
   toggleCart: () => void
-  addItem: (product: Product, priceInfo: { price: number; originalPrice: number; currency: string }) => void
+  addItem: (product: Product, priceInfo: { price: number; originalPrice: number; currency: string; colorVariant?: string }) => void
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
   clearCart: () => void
@@ -40,7 +40,7 @@ export function CartProvider({
   // Wrap addItem to also open cart
   const addItemAndOpen = (
     product: Product,
-    priceInfo: { price: number; originalPrice: number; currency: string }
+    priceInfo: { price: number; originalPrice: number; currency: string; colorVariant?: string }
   ) => {
     cartHook.addItem(product, priceInfo)
     openCart()

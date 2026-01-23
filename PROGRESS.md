@@ -10,6 +10,31 @@
 
 ## 执行日志（按时间倒序）
 
+### 2026-01-22 - 使用用户提供的源图片完善产品信息
+
+**任务**: 使用 source-pics 目录中的高质量图片更新两个产品的图片和数据
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 使用用户提供的截图更新 Smart Digital Calendar 图片
+- [x] 添加 8 张白色框架图片（main-new, angle, side, back, detail, screen, in-use, banner-features）
+- [x] 添加灰色和雪白色变体的主图
+- [x] 更新规格信息（Cover Material, Package Dimensions, Item Weight, Model Number, ASIN, Date First Available）
+- [x] 更新 Mini Arcade Machine 增加 2 张新图片（screen-view, controls）
+- [x] 部署到 Netlify
+
+**修改文件**:
+- `src/data/products.ts` - 更新两个产品的图片数组和规格
+- `public/images/products/smart-digital-calendar/white/` - 8张图片
+- `public/images/products/smart-digital-calendar/grey/` - 1张图片
+- `public/images/products/smart-digital-calendar/snow-white/` - 1张图片
+- `public/images/products/mini-arcade-machine/` - 17张图片
+
+**构建结果**: 50 个静态页面全部生成成功
+**部署地址**: https://claude-luxehome.netlify.app
+
+---
+
 ### 2026-01-22 - 丰富电子日程表产品信息
 
 **任务**: 从 Amazon 获取完整产品信息，添加颜色变体和更多图片
