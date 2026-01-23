@@ -34,9 +34,9 @@ export function Footer({ region }: FooterProps) {
   }
 
   return (
-    <footer className="bg-primary text-white">
-      {/* Newsletter Section */}
-      <div className="border-b border-white/10">
+    <footer className="text-white">
+      {/* Newsletter Section - Using slightly lighter background for visual separation */}
+      <div className="bg-[#242424]">
         <div className="container py-20 md:py-32">
           <div className="max-w-xl mx-auto text-center">
             <h3 className="font-display text-2xl md:text-3xl mb-8">Stay Updated</h3>
@@ -74,9 +74,21 @@ export function Footer({ region }: FooterProps) {
         </div>
       </div>
 
-      {/* Main Footer */}
-      <div className="container py-16 md:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
+      {/* Visual Separator - Gold accent line for luxury feel */}
+      <div className="bg-primary">
+        <div className="container">
+          <div className="flex items-center justify-center py-6">
+            <div className="flex-1 h-px bg-white/10"></div>
+            <div className="mx-6 w-16 h-px bg-accent"></div>
+            <div className="flex-1 h-px bg-white/10"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer - Pure black background */}
+      <div className="bg-primary">
+        <div className="container py-16 md:py-20">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href={`/${region}`} className="font-display text-2xl tracking-wider">
@@ -172,10 +184,11 @@ export function Footer({ region }: FooterProps) {
             </ul>
           </div>
         </div>
+        </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10">
+      <div className="bg-primary border-t border-white/10">
         <div className="container py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/50">
             <p>&copy; {currentYear} Luxehome. All rights reserved.</p>
