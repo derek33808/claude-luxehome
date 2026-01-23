@@ -10,6 +10,53 @@
 
 ## 执行日志（按时间倒序）
 
+### 2026-01-23 - 修复 Newsletter 与 Footer 视觉重合问题
+
+**任务**: 彻底修复页面底部 "Stay Updated" 区域与 Footer 链接区域的视觉融合问题
+**状态**: ✅ 完成
+
+**问题分析**:
+- Newsletter 和 Footer 都使用 `bg-primary` (#1a1a1a) 纯黑背景
+- 之前的分隔线 `border-white/10` 透明度太低，几乎看不见
+- 之前多次修复（增加 padding）没有解决根本问题：缺乏视觉层次区分
+
+**根本性解决方案**:
+1. Newsletter 区域使用稍浅的背景色 `bg-[#242424]`
+2. 添加金色装饰分隔线（符合奢华品牌调性）
+3. 每个区域显式设置 `bg-primary` 防止样式继承问题
+
+**代码修改** (`src/components/layout/Footer.tsx`):
+```tsx
+// Newsletter Section - 使用稍浅背景
+<div className="bg-[#242424]">
+
+// Visual Separator - 金色装饰线
+<div className="bg-primary">
+  <div className="container">
+    <div className="flex items-center justify-center py-6">
+      <div className="flex-1 h-px bg-white/10"></div>
+      <div className="mx-6 w-16 h-px bg-accent"></div>
+      <div className="flex-1 h-px bg-white/10"></div>
+    </div>
+  </div>
+</div>
+
+// Main Footer - 纯黑背景
+<div className="bg-primary">
+```
+
+**为什么之前的修复失败**:
+- 只增加 padding/spacing 不能解决背景色相同导致的视觉融合
+- 10% 透明度的白色分隔线在深色背景上几乎不可见
+- 没有创建真正的视觉层次
+
+**部署信息**:
+- GitHub Commit: b34708f
+- 部署时间: 2026-01-23
+- 线上地址: https://claude-luxehome.netlify.app/nz
+
+---
+
 ### 2026-01-23 - 上线前测试验证
 
 **任务**: 完成测试验证并准备上线
