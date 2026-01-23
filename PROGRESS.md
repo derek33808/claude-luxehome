@@ -1,14 +1,79 @@
 # Luxehome 项目进度
 
 ## 当前状态
-- **阶段**: Phase 3 - 纯静态站点 + 购物车
-- **任务**: 购物车功能 + 静态页面
+- **阶段**: Phase 4 - 代码优化与质量提升
+- **任务**: 项目优化与技术债务清理
 - **状态**: ✅ 完成
 - **线上地址**: https://claude-luxehome.netlify.app/nz
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-23 - 项目优化与技术债务清理
+
+**任务**: 根据全面审视结果，执行项目优化
+**状态**: ✅ 完成
+
+**已完成优化**:
+
+#### P1: 添加自动化测试 (高优先级)
+- [x] 安装 Vitest + React Testing Library + jsdom
+- [x] 创建 vitest.config.ts 配置文件
+- [x] 创建测试 setup 文件 (src/__tests__/setup.ts)
+- [x] 为 regions.ts 添加单元测试 (13 个测试用例)
+- [x] 为 cart.ts 添加单元测试 (15 个测试用例)
+- [x] 为 products.ts 添加单元测试 (19 个测试用例)
+- [x] 添加 npm test 脚本
+
+**测试结果**: 47 个测试全部通过
+
+#### P2: 产品数据重构 (高优先级)
+- [x] 创建 src/data/json/products.json 数据文件
+- [x] 重构 products.ts 从 JSON 导入数据
+- [x] 保持类型定义不变，数据与代码分离
+- [x] 便于后续产品扩展和维护
+
+#### P3: 清理 Payload CMS 遗留代码 (高优先级)
+- [x] 创建删除缓冲目录 .deleted/payload-cleanup-2026-01-23/
+- [x] 移动 src/payload/ 目录到删除缓冲
+- [x] 移动 src/payload.config.ts 到删除缓冲
+- [x] 移动 src/app/(admin)/ 到删除缓冲
+- [x] 移动 src/app/(payload)/ 到删除缓冲
+- [x] 创建 DELETION_LOG.md 记录删除原因
+- [x] 更新 .gitignore 忽略 .deleted/ 目录
+
+**清理文件**: 15 个 Payload 相关文件移至删除缓冲
+
+#### P4: 创建可复用 UI 组件 (中优先级)
+- [x] 创建 PageHero 组件 (页面标题区域)
+- [x] 创建 Breadcrumb 组件 (面包屑导航)
+- [x] 创建 Button 组件 (支持多种变体和大小)
+- [x] 创建 Card 系列组件 (Card, CardHeader, CardTitle, CardContent)
+- [x] 创建 FeatureCard 组件 (特性卡片)
+- [x] 创建 Section 系列组件 (Section, SectionHeader)
+- [x] 创建 ui/index.ts 索引文件
+
+#### M1: 博客图片引用检查 (中优先级)
+- [x] 验证所有博客图片路径
+- [x] 确认 9 个博客图片全部存在
+- [x] 问题状态: 已不存在
+
+**修改文件**:
+- `vitest.config.ts` - Vitest 配置
+- `src/__tests__/setup.ts` - 测试环境设置
+- `src/lib/regions.test.ts` - 地区配置测试
+- `src/lib/cart.test.ts` - 购物车测试
+- `src/data/products.test.ts` - 产品数据测试
+- `src/data/json/products.json` - 产品 JSON 数据
+- `src/data/products.ts` - 重构为从 JSON 导入
+- `src/components/ui/*.tsx` - 6 个新 UI 组件
+- `package.json` - 添加测试脚本和依赖
+- `.gitignore` - 添加 .deleted/ 忽略
+
+**构建结果**: 50 个静态页面全部生成成功，47 个测试通过
+
+---
 
 ### 2026-01-23 - 调整 Footer Stay Updated 区域间距
 
@@ -495,10 +560,12 @@
 | 基础框架搭建 | 2026-01-22 | ✅ 完成 |
 | 首页开发 | 2026-01-22 | ✅ 完成 |
 | Netlify 部署 | 2026-01-22 | ✅ 完成 |
-| 产品功能开发 | - | ⏳ 待开始 |
-| 购物功能开发 | - | ⏳ 待开始 |
-| 博客系统开发 | - | ⏳ 待开始 |
+| 产品功能开发 | 2026-01-22 | ✅ 完成 |
+| 购物功能开发 | 2026-01-22 | ✅ 完成 |
+| 博客系统开发 | 2026-01-22 | ✅ 完成 |
+| 代码优化与测试 | 2026-01-23 | ✅ 完成 |
 | 自定义域名 | - | ⏳ 待开始 |
+| Stripe 支付集成 | - | ⏳ 待开始 |
 
 ---
 
@@ -518,13 +585,18 @@
 - 可快速部署 Demo 版本
 - 域名确定后再更换
 
-### 2026-01-22 - CMS 选型
+### 2026-01-22 - CMS 选型 (已废弃)
 **决定**: 使用 Payload CMS 3.0
+**状态**: 已废弃 - 2026-01-23 清理
+**原因**: 项目转为纯静态站点，不再需要 CMS
+
+### 2026-01-23 - 架构简化
+**决定**: 移除 Payload CMS，采用纯静态站点 + JSON 数据
 **原因**:
-- TypeScript 原生支持
-- 和 Next.js 完美集成
-- 自托管，数据完全控制
-- 开源免费
+- 产品数量少，不需要复杂 CMS
+- 简化部署和维护
+- 静态站点性能更好
+- 降低技术复杂度
 
 ---
 
@@ -534,25 +606,37 @@
 luxehome/
 ├── src/
 │   ├── app/
-│   │   ├── (admin)/          # Payload Admin
 │   │   ├── (frontend)/       # 前台页面
 │   │   │   └── [region]/     # 多地区路由
-│   │   ├── (payload)/        # Payload API
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx          # 重定向到默认地区
 │   ├── components/
-│   │   └── layout/
-│   │       ├── Header.tsx
-│   │       └── Footer.tsx
+│   │   ├── cart/             # 购物车组件
+│   │   ├── faq/              # FAQ 组件
+│   │   ├── layout/           # 布局组件 (Header, Footer, NotificationBar)
+│   │   ├── product/          # 产品组件
+│   │   ├── reviews/          # 评论组件
+│   │   └── ui/               # 可复用 UI 组件
+│   ├── data/
+│   │   ├── json/             # JSON 数据文件
+│   │   │   └── products.json
+│   │   ├── blog.ts           # 博客数据
+│   │   ├── products.ts       # 产品数据模块
+│   │   └── reviews.ts        # 评论数据
 │   ├── lib/
+│   │   ├── cart.ts           # 购物车逻辑
+│   │   ├── config.ts         # 站点配置
 │   │   └── regions.ts        # 地区配置
-│   └── payload/
-│       ├── collections/      # 数据模型
-│       └── globals/          # 全局配置
-├── .env.local                # 环境变量
+│   └── __tests__/            # 测试文件
+│       └── setup.ts
+├── public/
+│   └── images/               # 产品图片
+├── .deleted/                 # 删除缓冲 (gitignored)
+├── vitest.config.ts          # 测试配置
 ├── DESIGN.md                 # 设计文档
 ├── PROGRESS.md               # 进度跟踪
+├── QA_REPORT.md              # QA 报告
 ├── package.json
 ├── tailwind.config.ts
 └── next.config.ts
