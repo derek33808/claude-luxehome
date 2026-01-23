@@ -37,7 +37,7 @@ export function Footer({ region }: FooterProps) {
     <footer className="text-white">
       {/* Newsletter Section - Using slightly lighter background for visual separation */}
       <div className="bg-[#242424]">
-        <div className="container py-20 md:py-32">
+        <div className="container py-24 md:py-36">
           <div className="max-w-xl mx-auto text-center">
             <h3 className="font-display text-2xl md:text-3xl mb-8">Stay Updated</h3>
             <p className="text-white/70 mb-10">
@@ -77,7 +77,7 @@ export function Footer({ region }: FooterProps) {
       {/* Visual Separator - Gold accent line for luxury feel */}
       <div className="bg-primary">
         <div className="container">
-          <div className="flex items-center justify-center py-6">
+          <div className="flex items-center justify-center py-10 md:py-12">
             <div className="flex-1 h-px bg-white/10"></div>
             <div className="mx-6 w-16 h-px bg-accent"></div>
             <div className="flex-1 h-px bg-white/10"></div>
@@ -87,7 +87,7 @@ export function Footer({ region }: FooterProps) {
 
       {/* Main Footer - Pure black background */}
       <div className="bg-primary">
-        <div className="container py-16 md:py-20">
+        <div className="container pt-16 pb-20 md:pt-20 md:pb-24">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
@@ -119,8 +119,8 @@ export function Footer({ region }: FooterProps) {
 
           {/* Shop */}
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4">Shop</h4>
-            <ul className="space-y-2">
+            <h4 className="font-semibold text-sm uppercase tracking-wider mb-6">Shop</h4>
+            <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-white/70 hover:text-accent transition-colors">
@@ -133,8 +133,8 @@ export function Footer({ region }: FooterProps) {
 
           {/* Company */}
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4">Company</h4>
-            <ul className="space-y-2">
+            <h4 className="font-semibold text-sm uppercase tracking-wider mb-6">Company</h4>
+            <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-white/70 hover:text-accent transition-colors">
@@ -147,8 +147,8 @@ export function Footer({ region }: FooterProps) {
 
           {/* Support */}
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4">Support</h4>
-            <ul className="space-y-2">
+            <h4 className="font-semibold text-sm uppercase tracking-wider mb-6">Support</h4>
+            <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-white/70 hover:text-accent transition-colors">
@@ -172,8 +172,8 @@ export function Footer({ region }: FooterProps) {
 
           {/* Legal */}
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4">Legal</h4>
-            <ul className="space-y-2">
+            <h4 className="font-semibold text-sm uppercase tracking-wider mb-6">Legal</h4>
+            <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-sm text-white/70 hover:text-accent transition-colors">
@@ -189,7 +189,7 @@ export function Footer({ region }: FooterProps) {
 
       {/* Bottom Bar */}
       <div className="bg-primary border-t border-white/10">
-        <div className="container py-8">
+        <div className="container py-10 md:py-12">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/50">
             <p>&copy; {currentYear} Luxehome. All rights reserved.</p>
             <p>
