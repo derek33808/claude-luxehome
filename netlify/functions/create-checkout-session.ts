@@ -39,20 +39,34 @@ export const handler: Handler = async (event: HandlerEvent) => {
     }
 
     // Get site URL from environment or use default
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+    const siteUrl = process.env.SITE_URL || process.env.URL || 'http://localhost:3000'
+
+    console.log('Environment variables:', {
+      SITE_URL: process.env.SITE_URL,
+      URL: process.env.URL,
+      using: siteUrl
+    })
 
     // Convert cart items to Stripe line items
-    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map((item) => ({
-      price_data: {
-        currency: currency.toLowerCase(),
-        product_data: {
-          name: item.name,
-          images: [item.image],
+    const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map((item) => {
+      // Convert relative image paths to absolute URLs
+      let imageUrl = item.image
+      if (imageUrl && imageUrl.startsWith('/')) {
+        imageUrl = `${siteUrl}${imageUrl}`
+      }
+
+      return {
+        price_data: {
+          currency: currency.toLowerCase(),
+          product_data: {
+            name: item.name,
+            images: imageUrl ? [imageUrl] : [],
+          },
+          unit_amount: Math.round(item.price * 100), // Convert to cents
         },
-        unit_amount: Math.round(item.price * 100), // Convert to cents
-      },
-      quantity: item.quantity,
-    }))
+        quantity: item.quantity,
+      }
+    })
 
     // Create Checkout Session
     const session = await stripe.checkout.sessions.create({
@@ -66,8 +80,18 @@ export const handler: Handler = async (event: HandlerEvent) => {
       },
     })
 
+    console.log('Created Stripe session:', {
+      id: session.id,
+      url: session.url,
+      success_url: session.success_url,
+      cancel_url: session.cancel_url
+    })
+
     return {
       statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         sessionId: session.id,
         sessionUrl: session.url
