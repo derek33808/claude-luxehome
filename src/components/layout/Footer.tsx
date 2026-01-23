@@ -37,10 +37,10 @@ export function Footer({ region }: FooterProps) {
     <footer className="bg-primary text-white">
       {/* Newsletter Section */}
       <div className="border-b border-white/10">
-        <div className="container py-16 md:py-24">
+        <div className="container py-20 md:py-32">
           <div className="max-w-xl mx-auto text-center">
-            <h3 className="font-display text-2xl md:text-3xl mb-6">Stay Updated</h3>
-            <p className="text-white/70 mb-8">
+            <h3 className="font-display text-2xl md:text-3xl mb-8">Stay Updated</h3>
+            <p className="text-white/70 mb-10">
               Subscribe for exclusive offers and new product updates.
             </p>
             <form
