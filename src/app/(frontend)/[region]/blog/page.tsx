@@ -226,42 +226,7 @@ export default async function BlogPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="section bg-primary">
-        <div className="container">
-          <div className="max-w-xl mx-auto text-center text-white">
-            <h2 className="font-display text-display-md mb-4">Stay Updated</h2>
-            <p className="text-white/70 mb-6">
-              Subscribe to our newsletter for the latest articles, organization tips, and exclusive offers delivered straight to your inbox.
-            </p>
-            <form
-              name="blog-newsletter"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              className="flex flex-col sm:flex-row gap-3"
-            >
-              <input type="hidden" name="form-name" value="blog-newsletter" />
-              <p className="hidden"><label>Don&apos;t fill this out: <input name="bot-field" /></label></p>
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Enter your email address"
-                className="flex-1 px-4 py-3 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-primary"
-              />
-              <button type="submit" className="btn-secondary whitespace-nowrap">
-                Subscribe Now
-              </button>
-            </form>
-            <p className="text-xs text-white/50 mt-4">
-              No spam, unsubscribe anytime. We respect your privacy.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* SEO Rich Snippets - FAQ Schema */}
+      {/* SEO Rich Snippets - Blog Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

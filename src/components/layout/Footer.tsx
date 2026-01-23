@@ -37,7 +37,7 @@ export function Footer({ region }: FooterProps) {
     <footer className="bg-primary text-white">
       {/* Newsletter Section */}
       <div className="border-b border-white/10">
-        <div className="container py-16">
+        <div className="container py-20">
           <div className="max-w-xl mx-auto text-center">
             <h3 className="font-display text-2xl mb-4">Stay Updated</h3>
             <p className="text-white/70 mb-6">
@@ -75,7 +75,7 @@ export function Footer({ region }: FooterProps) {
       </div>
 
       {/* Main Footer */}
-      <div className="container py-16">
+      <div className="container py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">

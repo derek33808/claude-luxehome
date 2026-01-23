@@ -263,38 +263,6 @@ export default async function BlogPostPage({ params }: PageProps) {
         </section>
       )}
 
-      {/* Newsletter CTA */}
-      <section className="section bg-primary">
-        <div className="container">
-          <div className="max-w-xl mx-auto text-center text-white">
-            <h2 className="font-display text-display-md mb-4">Enjoyed this article?</h2>
-            <p className="text-white/70 mb-6">
-              Subscribe to get more tips and guides delivered to your inbox.
-            </p>
-            <form
-              name="blog-newsletter"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              className="flex flex-col sm:flex-row gap-3"
-            >
-              <input type="hidden" name="form-name" value="blog-newsletter" />
-              <p className="hidden"><label>Don&apos;t fill this out: <input name="bot-field" /></label></p>
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent text-primary"
-              />
-              <button type="submit" className="btn-secondary whitespace-nowrap">
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
       {/* Article Schema */}
       <script
         type="application/ld+json"
