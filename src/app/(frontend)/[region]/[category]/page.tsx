@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getRegion, validRegions, RegionCode } from '@/lib/regions'
 import { getProductsByCategory, categories, Category } from '@/data/products'
+import { CategoryProductsClient } from '@/components/category'
 
 interface PageProps {
   params: Promise<{ region: string; category: string }>
@@ -52,27 +52,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-// Star Rating Component
-function StarRating({ rating }: { rating: number }) {
-  return (
-    <div className="flex items-center">
-      {[...Array(5)].map((_, i) => (
-        <svg
-          key={i}
-          className={`w-4 h-4 ${i < Math.floor(rating) ? 'text-accent' : 'text-border'}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  )
-}
-
 export default async function CategoryPage({ params }: PageProps) {
   const { region, category } = await params
-  const regionConfig = getRegion(region)
 
   // Check if category is valid
   if (!validCategories.includes(category)) {
@@ -112,78 +93,14 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </nav>
 
-      {/* Products Grid */}
+      {/* Products Grid with Filter/Sort */}
       <section className="section bg-white">
         <div className="container">
           {products.length > 0 ? (
-            <>
-              <p className="text-text-muted mb-8">
-                Showing {products.length} product{products.length !== 1 ? 's' : ''}
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {products.map((product) => {
-                  const price = product.prices[region as RegionCode]
-                  return (
-                    <Link
-                      key={product.id}
-                      href={`/${region}/p/${product.slug}`}
-                      className="group"
-                    >
-                      <div className="relative aspect-square bg-cream rounded-lg mb-4 overflow-hidden">
-                        <Image
-                          src={product.images[0].url}
-                          alt={product.images[0].alt}
-                          fill
-                          className="object-contain p-4 transition-transform duration-slow group-hover:scale-105"
-                        />
-                        {price.comparePrice && (
-                          <div className="absolute top-4 left-4 bg-accent text-white px-2 py-1 text-xs font-semibold rounded">
-                            SAVE {regionConfig.currencySymbol}{price.comparePrice - price.price}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-2">
-                        <span className="text-xs text-text-muted uppercase tracking-wider">
-                          {product.brand}
-                        </span>
-                        <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">
-                          {product.name}
-                        </h3>
-                        <p className="text-sm text-text-light line-clamp-2">
-                          {product.shortDescription}
-                        </p>
-
-                        <div className="flex items-center gap-2">
-                          <StarRating rating={product.rating} />
-                          <span className="text-sm text-text-muted">
-                            ({product.reviewCount})
-                          </span>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold text-primary">
-                            {regionConfig.currencySymbol}{price.price}
-                          </span>
-                          {price.comparePrice && (
-                            <span className="text-sm text-text-muted line-through">
-                              {regionConfig.currencySymbol}{price.comparePrice}
-                            </span>
-                          )}
-                        </div>
-
-                        {product.inStock ? (
-                          <span className="text-xs text-success font-medium">In Stock</span>
-                        ) : (
-                          <span className="text-xs text-red-500 font-medium">Out of Stock</span>
-                        )}
-                      </div>
-                    </Link>
-                  )
-                })}
-              </div>
-            </>
+            <CategoryProductsClient
+              products={products}
+              region={region as RegionCode}
+            />
           ) : (
             <div className="text-center py-16">
               <svg

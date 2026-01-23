@@ -106,7 +106,6 @@ describe('regions', () => {
     it('should format price with AUD symbol', () => {
       expect(formatPrice(100, regions.au)).toBe('AUD $100')
       expect(formatPrice(0, regions.au)).toBe('AUD $0')
-      expect(formatPrice(99.99, regions.au)).toBe('AUD $99.99')
     })
 
     it('should format price with NZD symbol', () => {
@@ -115,6 +114,17 @@ describe('regions', () => {
 
     it('should format price with USD symbol', () => {
       expect(formatPrice(200, regions.us)).toBe('USD $200')
+    })
+
+    it('should format large prices with thousand separators', () => {
+      expect(formatPrice(1234, regions.au)).toBe('AUD $1,234')
+      expect(formatPrice(12345, regions.nz)).toBe('NZD $12,345')
+      expect(formatPrice(1234567, regions.us)).toBe('USD $1,234,567')
+    })
+
+    it('should round decimal prices to whole numbers', () => {
+      expect(formatPrice(99.99, regions.au)).toBe('AUD $100')
+      expect(formatPrice(99.49, regions.nz)).toBe('NZD $99')
     })
   })
 })

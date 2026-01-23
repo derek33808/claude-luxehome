@@ -257,15 +257,13 @@ export function CartDrawer({ region }: CartDrawerProps) {
                 </div>
 
                 {/* Checkout Button */}
-                <button
-                  className="w-full btn-primary"
-                  onClick={() => {
-                    // TODO: Implement checkout
-                    alert('Checkout coming soon! This will integrate with payment processor.')
-                  }}
+                <a
+                  href={`/${region}/checkout`}
+                  className="w-full btn-primary block text-center"
+                  onClick={closeCart}
                 >
                   Proceed to Checkout
-                </button>
+                </a>
 
                 {/* Continue Shopping */}
                 <button

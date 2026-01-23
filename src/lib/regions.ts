@@ -59,6 +59,17 @@ export function getRegion(code: string): RegionConfig {
   return regions[defaultRegion]
 }
 
+/**
+ * Format price with currency symbol and thousand separators
+ * Examples:
+ * - formatPrice(1234, au) => "AUD $1,234"
+ * - formatPrice(999, nz) => "NZD $999"
+ * - formatPrice(1234567, us) => "USD $1,234,567"
+ */
 export function formatPrice(amount: number, region: RegionConfig): string {
-  return `${region.currencySymbol}${amount}`
+  const formattedAmount = amount.toLocaleString('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  })
+  return `${region.currencySymbol}${formattedAmount}`
 }

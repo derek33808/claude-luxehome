@@ -1,14 +1,155 @@
 # Luxehome 项目进度
 
 ## 当前状态
-- **阶段**: Phase 4 - 代码优化与质量提升
-- **任务**: 项目优化与技术债务清理
-- **状态**: ✅ 完成
+- **阶段**: Phase 6 - 测试验证与上线
+- **任务**: E2E 测试完成，准备上线
+- **状态**: 🔄 进行中
 - **线上地址**: https://claude-luxehome.netlify.app/nz
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-23 - 上线前测试验证
+
+**任务**: 完成测试验证并准备上线
+**状态**: 🔄 进行中
+
+**测试验证**:
+
+#### 单元测试 (Vitest)
+- [x] 运行所有单元测试: 49/49 通过 (100%)
+- [x] 测试覆盖: regions.ts, cart.ts, products.ts
+
+#### E2E 测试 (Playwright) - 新增
+- [x] 安装 Playwright 测试框架
+- [x] 配置 playwright.config.ts
+- [x] 创建 e2e/shopping-flow.spec.ts 测试文件
+- [x] 运行 E2E 测试: **35/35 通过 (100%)**
+
+**E2E 测试覆盖范围:**
+- Homepage (4 tests): 页面加载、Header、Hero、分类
+- Region Switching (3 tests): AU/NZ/US 地区和货币
+- Product Browsing (4 tests): 产品页、图片、价格、购物车按钮
+- Shopping Cart (2 tests): 添加商品、购物车抽屉
+- Category Page (3 tests): 品类页导航和展示
+- Checkout Flow (1 test): 结账页面
+- Static Pages (5 tests): About/FAQ/Shipping/Contact/Blog
+- Footer (3 tests): Footer、Newsletter、链接
+- Product Features (3 tests): 评论、功能、FAQ
+- Mobile (2 tests): 响应式设计
+- SEO (3 tests): 页面标题
+- Navigation (2 tests): 页面间导航
+
+#### 构建验证
+- [x] 运行 `npm run build`: 成功
+- [x] 生成 80 个静态页面
+- [x] 新增 Checkout 页面 (AU/NZ/US)
+- [x] 无 TypeScript 错误
+
+**新增文件**:
+- `playwright.config.ts` - Playwright 配置
+- `e2e/shopping-flow.spec.ts` - E2E 测试用例 (35 个测试)
+
+**修改文件**:
+- `package.json` - 添加 @playwright/test 依赖
+- `QA_REPORT.md` - 更新测试记录
+
+**下一步**:
+- [ ] 提交代码到 GitHub
+- [ ] 验证 Netlify 自动部署
+- [ ] 确认线上功能正常
+
+---
+
+### 2026-01-23 - 多 Agent 协作优化项目
+
+**任务**: 处理 QA 报告中识别的 5 个遗留问题
+**状态**: ✅ 完成
+**执行方式**: 多 Agent 并行协作
+
+**任务分解与执行**:
+
+#### M2: 品类页筛选/排序功能 (Medium)
+- [x] 创建 FilterSortBar 组件（支持排序和库存筛选）
+- [x] 创建 CategoryProductsClient 客户端组件
+- [x] 实现价格排序：低到高、高到低
+- [x] 实现评分排序、名称排序
+- [x] 实现库存筛选：全部、仅有货、无货
+- [x] 重构品类页面使用新组件
+
+**新增文件**:
+- `src/components/category/FilterSortBar.tsx` - 筛选排序工具栏
+- `src/components/category/CategoryProductsClient.tsx` - 品类产品客户端组件
+- `src/components/category/index.ts` - 组件导出索引
+
+#### M3: 结账流程表单验证 (Medium)
+- [x] 创建 Checkout 页面（支持 3 个地区）
+- [x] 创建 CheckoutForm 组件
+- [x] 实现完整表单验证：
+  - Email 格式验证
+  - 电话号码验证
+  - 地址字段必填验证
+  - 邮编格式验证（AU/NZ: 4位, US: 5位或9位）
+- [x] 集成 Netlify Forms
+- [x] 添加订单确认页面
+- [x] 更新 CartDrawer 结账按钮链接
+
+**新增文件**:
+- `src/app/(frontend)/[region]/checkout/page.tsx` - 结账页面
+- `src/components/checkout/CheckoutForm.tsx` - 结账表单组件
+- `src/components/checkout/index.ts` - 组件导出索引
+
+#### M4: NotificationBar 布局修复 (Medium)
+- [x] 分析布局问题：Header fixed 定位导致遮挡
+- [x] 将 Header 从 `fixed` 改为 `sticky`
+- [x] 移除 main 的 `pt-20` padding
+- [x] 优化 NotificationBar 响应式文本
+- [x] 修复 z-index 层级
+
+**修改文件**:
+- `src/components/layout/NotificationBar.tsx` - 添加固定高度和响应式优化
+- `src/components/layout/Header.tsx` - 改为 sticky 定位
+- `src/app/(frontend)/[region]/layout.tsx` - 移除多余 padding
+
+#### L1: 货币格式化千分位 (Low)
+- [x] 更新 formatPrice 函数支持千分位分隔符
+- [x] 使用 toLocaleString 实现标准格式化
+- [x] 更新测试用例覆盖千分位场景
+- [x] 测试大额价格显示：$1,234 / $12,345 / $1,234,567
+
+**修改文件**:
+- `src/lib/regions.ts` - 更新 formatPrice 函数
+- `src/lib/regions.test.ts` - 新增千分位测试用例
+
+#### L2: 产品图片评估 (Low)
+- [x] 评估现有图片资源
+- [x] White 变体: 8 张图片（完整）
+- [x] Grey 变体: 1 张图片（可接受 MVP）
+- [x] Snow White 变体: 1 张图片（可接受 MVP）
+- [x] 状态: 已记录为 Known Issue，后续产品更新时补充
+
+**测试结果**:
+- 单元测试: 49/49 通过 (100%)
+- 构建验证: 53 个静态页面生成成功
+- 新增页面: 3 个 checkout 页面
+
+**修改文件汇总**:
+- `src/components/category/FilterSortBar.tsx` (新增)
+- `src/components/category/CategoryProductsClient.tsx` (新增)
+- `src/components/category/index.ts` (新增)
+- `src/components/checkout/CheckoutForm.tsx` (新增)
+- `src/components/checkout/index.ts` (新增)
+- `src/app/(frontend)/[region]/checkout/page.tsx` (新增)
+- `src/app/(frontend)/[region]/[category]/page.tsx` (更新)
+- `src/app/(frontend)/[region]/layout.tsx` (更新)
+- `src/components/layout/NotificationBar.tsx` (更新)
+- `src/components/layout/Header.tsx` (更新)
+- `src/components/cart/CartDrawer.tsx` (更新)
+- `src/lib/regions.ts` (更新)
+- `src/lib/regions.test.ts` (更新)
+
+---
 
 ### 2026-01-23 - 项目优化与技术债务清理
 

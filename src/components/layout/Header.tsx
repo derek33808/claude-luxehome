@@ -24,7 +24,7 @@ export function Header({ region }: HeaderProps) {
   ]
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-border">
+    <header className="sticky top-0 left-0 right-0 z-40 bg-white border-b border-border">
       <div className="container">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
