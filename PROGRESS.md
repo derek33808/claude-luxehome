@@ -10,6 +10,33 @@
 
 ## 执行日志（按时间倒序）
 
+### 2026-01-23 - 调整 Footer Stay Updated 区域间距
+
+**任务**: 增加 Stay Updated 部分的上下间距，改善视觉呼吸感
+**状态**: ✅ 完成
+
+**完成内容**:
+- [x] 增加容器 padding：py-16 md:py-24 → py-20 md:py-32
+- [x] 增加标题下边距：mb-6 → mb-8
+- [x] 增加描述下边距：mb-8 → mb-10
+- [x] 使用 Playwright 本地验证效果
+- [x] 部署到 Netlify 并验证线上效果
+
+**修改文件**:
+- `src/components/layout/Footer.tsx` - Stay Updated 区域间距调整
+
+**部署信息**:
+- Commit: main@4d5d816
+- 部署时间: 2026-01-23
+- 线上地址: https://claude-luxehome.netlify.app/nz
+
+**视觉改进**:
+- FAQ 部分与 Stay Updated 之间的过渡更加自然
+- Newsletter 表单区域有更充足的呼吸空间
+- 整体视觉平衡性提升
+
+---
+
 ### 2026-01-22 - 使用用户提供的源图片完善产品信息
 
 **任务**: 使用 source-pics 目录中的高质量图片更新两个产品的图片和数据
