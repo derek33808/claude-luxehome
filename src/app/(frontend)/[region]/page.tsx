@@ -183,6 +183,8 @@ export default async function HomePage({ params }: PageProps) {
                     alt={featuredProduct.images[0].alt}
                     fill
                     className="object-contain p-8"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
                   />
                 </div>
 
@@ -254,6 +256,7 @@ export default async function HomePage({ params }: PageProps) {
                       alt={product.images[0].alt}
                       fill
                       className="object-contain p-4 transition-transform duration-slow group-hover:scale-105"
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
                   </div>
                   <h3 className="font-semibold text-primary group-hover:text-accent transition-colors">

@@ -27,6 +27,7 @@ export function ProductImageGallery({ images, productName, saveBadge }: ProductI
           fill
           className="object-contain p-4"
           priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
         />
         {saveBadge}
       </div>
@@ -49,6 +50,7 @@ export function ProductImageGallery({ images, productName, saveBadge }: ProductI
               alt={image.alt}
               fill
               className="object-contain p-2"
+              sizes="150px"
             />
           </button>
         ))}
