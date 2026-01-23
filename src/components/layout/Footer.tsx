@@ -37,7 +37,7 @@ export function Footer({ region }: FooterProps) {
     <footer className="text-white">
       {/* Newsletter Section - Same background as footer, separated by gold accent line */}
       <div className="bg-primary">
-        <div className="container pt-40 pb-24 md:pt-52 md:pb-36">
+        <div className="container" style={{ paddingTop: '32px', paddingBottom: '24px' }}>
           <div className="max-w-xl mx-auto text-center">
             <h3 className="font-display text-2xl md:text-3xl mb-8">Stay Updated</h3>
             <p className="text-white/70 mb-10">
