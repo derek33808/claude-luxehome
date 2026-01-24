@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@stripe/stripe-js": "^8.6.4",
+    "@supabase/supabase-js": "^2.91.1",
     "next": "^15.5.9",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "resend": "^6.8.0",
     "sharp": "^0.34.5",
     "stripe": "^20.2.0"
   },

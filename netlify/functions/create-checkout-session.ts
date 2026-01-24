@@ -11,12 +11,27 @@ interface CartItem {
   price: number
   quantity: number
   image: string
+  colorVariant?: string
+  slug?: string
+}
+
+interface ShippingAddress {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  state: string
+  postalCode: string
+  country: string
 }
 
 interface CheckoutRequestBody {
   items: CartItem[]
   region: string
   currency: string
+  shippingAddress?: ShippingAddress
 }
 
 export const handler: Handler = async (event: HandlerEvent) => {
@@ -29,7 +44,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
   }
 
   try {
-    const { items, region, currency }: CheckoutRequestBody = JSON.parse(event.body || '{}')
+    const { items, region, currency, shippingAddress }: CheckoutRequestBody = JSON.parse(event.body || '{}')
 
     if (!items || items.length === 0) {
       return {
@@ -68,17 +83,44 @@ export const handler: Handler = async (event: HandlerEvent) => {
       }
     })
 
-    // Create Checkout Session
-    const session = await stripe.checkout.sessions.create({
+    // Prepare session options
+    const sessionOptions: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       success_url: `${siteUrl}/${region}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}/${region}/checkout/cancel`,
+      // Store item details in metadata for webhook processing
       metadata: {
         region,
+        items_json: JSON.stringify(items.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          colorVariant: item.colorVariant || null,
+          slug: item.slug || null,
+          image: item.image
+        }))),
+        shipping_address_json: shippingAddress ? JSON.stringify(shippingAddress) : '',
       },
-    })
+    }
+
+    // If shipping address is provided, pre-fill customer details
+    if (shippingAddress) {
+      sessionOptions.customer_email = shippingAddress.email
+      sessionOptions.shipping_address_collection = {
+        allowed_countries: ['AU', 'NZ', 'US']
+      }
+    } else {
+      // Collect shipping address during checkout
+      sessionOptions.shipping_address_collection = {
+        allowed_countries: ['AU', 'NZ', 'US']
+      }
+    }
+
+    // Create Checkout Session
+    const session = await stripe.checkout.sessions.create(sessionOptions)
 
     console.log('Created Stripe session:', {
       id: session.id,
