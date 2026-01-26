@@ -12,6 +12,34 @@
 
 ## 执行日志（按时间倒序）
 
+### 2026-01-26 15:30 - 退款邮件与结账提示优化 ✅
+
+**任务**: 添加自定义退款邮件功能，优化结账表单邮箱填写提示
+**状态**: ✅ 完成
+
+**完成内容**:
+
+1. **自定义退款邮件** (`netlify/functions/admin-orders.ts`)
+   - 添加 Resend 邮件服务集成
+   - 创建 `getResendClient()` 和 `formatCurrency()` 辅助函数
+   - 在退款成功后发送精美的 HTML 邮件，包含：
+     - 订单号和退款金额
+     - 退款商品明细
+     - 退款说明和预计到账时间
+   - 邮件发送失败不会影响退款流程（try-catch 包裹）
+
+2. **结账表单邮箱提示** (`src/components/checkout/CheckoutForm.tsx`)
+   - 在邮箱输入框下方添加提示文字
+   - 提醒用户："Please ensure your email is correct. We'll send order confirmation, shipping updates, and important notifications to this address."
+
+**修改的文件**:
+- `netlify/functions/admin-orders.ts` - 添加退款邮件发送功能
+- `src/components/checkout/CheckoutForm.tsx` - 添加邮箱准确填写提示
+
+**构建结果**: ✅ 通过
+
+---
+
 ### 2026-01-26 14:00 - Phase 3 静态导出修复 ✅
 
 **任务**: 修复 Phase 3 订单管理在静态导出模式下的兼容性问题

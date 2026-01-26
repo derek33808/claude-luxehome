@@ -216,6 +216,9 @@ export function CheckoutForm({ region }: CheckoutFormProps) {
                 }`}
                 placeholder="your@email.com"
               />
+              <p className="mt-1 text-xs text-secondary">
+                Please ensure your email is correct. We&apos;ll send order confirmation, shipping updates, and important notifications to this address.
+              </p>
               {errors.email && (
                 <p className="mt-1 text-sm text-error">{errors.email}</p>
               )}
