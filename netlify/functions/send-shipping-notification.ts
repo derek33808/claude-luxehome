@@ -264,7 +264,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: 'LuxeHome <orders@resend.dev>',
       to: [order.customer_email],
-      replyTo: process.env.ADMIN_EMAIL || 'derek.yuqiang@gmail.com',
+      replyTo: process.env.ADMIN_EMAIL,
       subject: `Your LuxeHome Order Has Shipped! - ${order.order_number}`,
       html: emailHtml,
     })

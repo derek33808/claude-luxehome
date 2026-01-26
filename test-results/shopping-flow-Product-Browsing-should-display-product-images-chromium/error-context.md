@@ -1,0 +1,519 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]: 🎉
+        - paragraph [ref=e7]:
+          - text: Free Shipping on orders over NZD $100 to New Zealand|
+          - link "Shop Now" [ref=e8] [cursor=pointer]:
+            - /url: /nz/products
+      - button "Close notification" [ref=e9]:
+        - img [ref=e10]
+    - banner [ref=e12]:
+      - navigation [ref=e14]:
+        - link "LUXEHOME" [ref=e15] [cursor=pointer]:
+          - /url: /nz
+        - list [ref=e16]:
+          - listitem [ref=e17]:
+            - link "Home" [ref=e18] [cursor=pointer]:
+              - /url: /nz
+          - listitem [ref=e19]:
+            - link "Kitchen" [ref=e20] [cursor=pointer]:
+              - /url: /nz/kitchen
+          - listitem [ref=e21]:
+            - link "Outdoor" [ref=e22] [cursor=pointer]:
+              - /url: /nz/outdoor
+          - listitem [ref=e23]:
+            - link "Tech" [ref=e24] [cursor=pointer]:
+              - /url: /nz/tech
+          - listitem [ref=e25]:
+            - link "Lifestyle" [ref=e26] [cursor=pointer]:
+              - /url: /nz/lifestyle
+          - listitem [ref=e27]:
+            - link "Blog" [ref=e28] [cursor=pointer]:
+              - /url: /nz/blog
+        - generic [ref=e29]:
+          - button "🇳🇿 NZ" [ref=e31]:
+            - generic [ref=e32]: 🇳🇿
+            - generic [ref=e33]: NZ
+            - img [ref=e34]
+          - button "Search" [ref=e36]:
+            - img [ref=e37]
+          - button "Shopping cart with 0 items" [ref=e39]:
+            - img [ref=e40]
+    - main [ref=e42]:
+      - navigation [ref=e43]:
+        - list [ref=e45]:
+          - listitem [ref=e46]:
+            - link "Home" [ref=e47] [cursor=pointer]:
+              - /url: /nz
+          - listitem [ref=e48]: /
+          - listitem [ref=e49]:
+            - link "tech" [ref=e50] [cursor=pointer]:
+              - /url: /nz/tech
+          - listitem [ref=e51]: /
+          - listitem [ref=e52]: Smart Digital Calendar
+      - generic [ref=e55]:
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - img "White Frame - Main" [ref=e59]
+            - generic [ref=e60]: SAVE NZD $70
+          - generic [ref=e61]:
+            - button "View Smart Digital Calendar image 1" [ref=e62] [cursor=pointer]:
+              - img "White Frame - Main" [ref=e63]
+            - button "View Smart Digital Calendar image 2" [ref=e64] [cursor=pointer]:
+              - img "White Frame - Angle" [ref=e65]
+            - button "View Smart Digital Calendar image 3" [ref=e66] [cursor=pointer]:
+              - img "White Frame - Side" [ref=e67]
+            - button "View Smart Digital Calendar image 4" [ref=e68] [cursor=pointer]:
+              - img "White Frame - Back" [ref=e69]
+            - button "View Smart Digital Calendar image 5" [ref=e70] [cursor=pointer]:
+              - img "White Frame - Detail" [ref=e71]
+            - button "View Smart Digital Calendar image 6" [ref=e72] [cursor=pointer]:
+              - img "White Frame - Screen" [ref=e73]
+            - button "View Smart Digital Calendar image 7" [ref=e74] [cursor=pointer]:
+              - img "White Frame - In Use" [ref=e75]
+            - button "View Smart Digital Calendar image 8" [ref=e76] [cursor=pointer]:
+              - img "White Frame - Features" [ref=e77]
+          - paragraph [ref=e78]: 1 / 8
+        - generic [ref=e79]:
+          - text: LOCVMIKY
+          - heading "Smart Digital Calendar" [level=1] [ref=e81]
+          - paragraph [ref=e82]: 15.6" Family Organizer & Wall Planner with Touchscreen
+          - generic [ref=e83]:
+            - generic [ref=e84]:
+              - img [ref=e85]
+              - img [ref=e87]
+              - img [ref=e89]
+              - img [ref=e91]
+              - img [ref=e93]
+            - generic [ref=e95]: 5 (2 reviews)
+            - generic [ref=e96]: Verified Buyers
+          - generic [ref=e97]:
+            - generic [ref=e98]: NZD $429
+            - generic [ref=e99]: NZD $499
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - generic [ref=e102]: "Color:"
+              - generic [ref=e103]: White Frame
+            - generic [ref=e104]:
+              - button "Select White Frame" [ref=e105] [cursor=pointer]
+              - button "Select Grey Frame" [ref=e107] [cursor=pointer]
+              - button "Select Snow White Frame" [ref=e109] [cursor=pointer]
+          - generic [ref=e113]: In Stock - Ready to Ship
+          - paragraph [ref=e114]: Bring order to your busy household with this 15.6" touchscreen calendar. View schedules, chores, to-dos, and reminders in one central hub. Color-code and assign tasks to each family member for clarity and collaboration. When not in use, it transforms into a beautiful 1080p digital photo frame.
+          - generic [ref=e115]:
+            - button "Add to Cart - NZD $429" [ref=e116] [cursor=pointer]
+            - button [ref=e117] [cursor=pointer]:
+              - img [ref=e118]
+          - generic [ref=e120]:
+            - generic [ref=e121]:
+              - img [ref=e123]
+              - text: Free Shipping
+            - generic [ref=e125]:
+              - img [ref=e127]
+              - text: Secure Payment
+            - generic [ref=e129]:
+              - img [ref=e131]
+              - text: 30-Day Returns
+            - generic [ref=e133]:
+              - img [ref=e135]
+              - text: Lifetime Support
+          - generic [ref=e137]:
+            - heading "Syncs with your favorite calendars:" [level=3] [ref=e138]
+            - generic [ref=e139]:
+              - generic [ref=e140]:
+                - generic [ref=e141]: 📅
+                - generic [ref=e142]: Google Calendar
+              - generic [ref=e143]:
+                - generic [ref=e144]: 🍎
+                - generic [ref=e145]: Apple iCloud
+              - generic [ref=e146]:
+                - generic [ref=e147]: 📧
+                - generic [ref=e148]: Outlook
+              - generic [ref=e149]:
+                - generic [ref=e150]: 📨
+                - generic [ref=e151]: Yahoo
+              - generic [ref=e152]:
+                - generic [ref=e153]: 👨‍👩‍👧‍👦
+                - generic [ref=e154]: Cozi
+      - generic [ref=e157]:
+        - generic [ref=e158]:
+          - img [ref=e159]
+          - generic [ref=e161]:
+            - paragraph [ref=e162]: 30-Day Money-Back Guarantee
+            - paragraph [ref=e163]: Not satisfied? Full refund, no questions asked
+        - generic [ref=e165]:
+          - img [ref=e166]
+          - generic [ref=e168]:
+            - paragraph [ref=e169]: 2-Year Warranty
+            - paragraph [ref=e170]: Extended protection for peace of mind
+      - generic [ref=e172]:
+        - generic [ref=e173]:
+          - heading "Why Families Love It" [level=2] [ref=e175]
+          - paragraph [ref=e176]: Designed with busy families in mind, every feature serves a purpose
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - generic [ref=e180]: 📅
+            - heading "All-in-One Smart Family Organizer" [level=3] [ref=e181]
+            - paragraph [ref=e182]: View schedules, chores, to-dos, and reminders in one central hub. Color-code and assign tasks to each family member for clarity and collaboration.
+          - generic [ref=e183]:
+            - generic [ref=e185]: ⚡
+            - heading "Easy Setup & Calendar Sync" [level=3] [ref=e186]
+            - paragraph [ref=e187]: Plug in, connect to Wi-Fi, and import your existing calendars in minutes. Compatible with Google, iCloud, Outlook, Yahoo, and Cozi - all updates stay in sync across devices.
+          - generic [ref=e188]:
+            - generic [ref=e190]: ✅
+            - heading "Interactive Chore Chart & Meal Planner" [level=3] [ref=e191]
+            - paragraph [ref=e192]: Use the built-in chore chart to assign responsibilities like tidying, pet care, or homework. Plan weekly meals and build a shared shopping list - a visual system that encourages accountability and reduces daily decision stress.
+          - generic [ref=e193]:
+            - generic [ref=e195]: 🖼️
+            - heading "Digital Photo Frame When Idle" [level=3] [ref=e196]
+            - paragraph [ref=e197]: When not in use, the device transforms into a beautiful 1080p photo frame, automatically syncing family photos from your phone. Create a warm, personal touch in your kitchen, hallway, or family command center.
+          - generic [ref=e198]:
+            - generic [ref=e200]: 💰
+            - heading "Reminders & Class Schedules" [level=3] [ref=e201]
+            - paragraph [ref=e202]: Receive timezone-aware alerts for school, work, or extracurriculars. Manage all reminders from the Zical mobile app, with no subscription fees ever - just a one-time setup for lasting simplicity.
+          - generic [ref=e203]:
+            - heading "No Subscription Required" [level=3] [ref=e205]
+            - paragraph [ref=e206]: Unlike other smart calendars, there are no monthly fees or hidden costs. Pay once and enjoy all features forever with free app updates.
+      - generic [ref=e209]:
+        - heading "Customer Reviews" [level=2] [ref=e212]
+        - generic [ref=e213]:
+          - generic [ref=e214]:
+            - generic [ref=e215]:
+              - generic [ref=e216]: "4.8"
+              - generic [ref=e217]:
+                - generic [ref=e218]:
+                  - img [ref=e219]
+                  - img [ref=e221]
+                  - img [ref=e223]
+                  - img [ref=e225]
+                  - img [ref=e227]
+                - paragraph [ref=e229]: Based on 6 reviews
+            - button "Write a Review" [ref=e230] [cursor=pointer]
+          - generic [ref=e231]:
+            - generic [ref=e232]:
+              - generic [ref=e233]: 5 star
+              - generic [ref=e236]: "5"
+            - generic [ref=e237]:
+              - generic [ref=e238]: 4 star
+              - generic [ref=e241]: "1"
+            - generic [ref=e242]:
+              - generic [ref=e243]: 3 star
+              - generic [ref=e245]: "0"
+            - generic [ref=e246]:
+              - generic [ref=e247]: 2 star
+              - generic [ref=e249]: "0"
+            - generic [ref=e250]:
+              - generic [ref=e251]: 1 star
+              - generic [ref=e253]: "0"
+        - generic [ref=e254]:
+          - generic [ref=e255]:
+            - generic [ref=e256]:
+              - generic [ref=e257]:
+                - generic [ref=e258]:
+                  - generic [ref=e259]:
+                    - img [ref=e260]
+                    - img [ref=e262]
+                    - img [ref=e264]
+                    - img [ref=e266]
+                    - img [ref=e268]
+                  - generic [ref=e270]: Verified Purchase
+                - heading "Game changer for our busy family!" [level=4] [ref=e271]
+              - generic [ref=e272]: 15 Jan 2026
+            - paragraph [ref=e273]: This has completely transformed how our family organizes. No more missed appointments or forgotten activities! The kids actually check it every morning to see their tasks. The photo frame feature is a lovely bonus - we have it cycling through family photos when not in use.
+            - generic [ref=e274]:
+              - generic [ref=e275]:
+                - text: Sarah M.
+                - generic [ref=e276]: • Auckland, NZ
+              - button "Helpful (24)" [ref=e277]:
+                - img [ref=e278]
+                - generic [ref=e280]: Helpful (24)
+          - generic [ref=e281]:
+            - generic [ref=e282]:
+              - generic [ref=e283]:
+                - generic [ref=e284]:
+                  - generic [ref=e285]:
+                    - img [ref=e286]
+                    - img [ref=e288]
+                    - img [ref=e290]
+                    - img [ref=e292]
+                    - img [ref=e294]
+                  - generic [ref=e296]: Verified Purchase
+                - heading "Finally, a calendar the whole family uses" [level=4] [ref=e297]
+              - generic [ref=e298]: 10 Jan 2026
+            - paragraph [ref=e299]: Working from home with kids was chaos until we got this. Now everyone knows who needs to be where and when. The sync with Google Calendar is seamless - I update from my phone and it appears instantly. Worth every dollar!
+            - generic [ref=e300]:
+              - generic [ref=e301]:
+                - text: Michael T.
+                - generic [ref=e302]: • Wellington, NZ
+              - button "Helpful (18)" [ref=e303]:
+                - img [ref=e304]
+                - generic [ref=e306]: Helpful (18)
+          - generic [ref=e307]:
+            - generic [ref=e308]:
+              - generic [ref=e309]:
+                - generic [ref=e310]:
+                  - generic [ref=e311]:
+                    - img [ref=e312]
+                    - img [ref=e314]
+                    - img [ref=e316]
+                    - img [ref=e318]
+                    - img [ref=e320]
+                  - generic [ref=e322]: Verified Purchase
+                - heading "No subscription is a huge plus" [level=4] [ref=e323]
+              - generic [ref=e324]: 5 Jan 2026
+            - paragraph [ref=e325]: I was hesitant about the price, but the fact that there's no monthly subscription sold me. Setup was easier than expected - maybe 10 minutes? The meal planning feature is surprisingly useful. We use it every Sunday to plan our week.
+            - generic [ref=e326]:
+              - generic [ref=e327]:
+                - text: Jennifer L.
+                - generic [ref=e328]: • Sydney, AU
+              - button "Helpful (31)" [ref=e329]:
+                - img [ref=e330]
+                - generic [ref=e332]: Helpful (31)
+          - generic [ref=e333]:
+            - generic [ref=e334]:
+              - generic [ref=e335]:
+                - generic [ref=e336]:
+                  - generic [ref=e337]:
+                    - img [ref=e338]
+                    - img [ref=e340]
+                    - img [ref=e342]
+                    - img [ref=e344]
+                    - img [ref=e346]
+                  - generic [ref=e348]: Verified Purchase
+                - heading "Great product, minor learning curve" [level=4] [ref=e349]
+              - generic [ref=e350]: 28 Dec 2025
+            - paragraph [ref=e351]: Love the concept and execution. Took a day or two to get everyone used to checking it, but now it's become the command center of our home. Only minor complaint is the screen could be a bit brighter in direct sunlight.
+            - generic [ref=e352]:
+              - generic [ref=e353]:
+                - text: David K.
+                - generic [ref=e354]: • Brisbane, AU
+              - button "Helpful (12)" [ref=e355]:
+                - img [ref=e356]
+                - generic [ref=e358]: Helpful (12)
+          - generic [ref=e359]:
+            - generic [ref=e360]:
+              - generic [ref=e361]:
+                - generic [ref=e362]:
+                  - generic [ref=e363]:
+                    - img [ref=e364]
+                    - img [ref=e366]
+                    - img [ref=e368]
+                    - img [ref=e370]
+                    - img [ref=e372]
+                  - generic [ref=e374]: Verified Purchase
+                - heading "Perfect gift for parents" [level=4] [ref=e375]
+              - generic [ref=e376]: 20 Dec 2025
+            - paragraph [ref=e377]: Bought this for my parents who were struggling to keep track of grandkid activities. They absolutely love it! My mum said it's the best gift she's ever received. The touchscreen is responsive and the interface is simple enough for seniors.
+            - generic [ref=e378]:
+              - generic [ref=e379]:
+                - text: Emma W.
+                - generic [ref=e380]: • Christchurch, NZ
+              - button "Helpful (45)" [ref=e381]:
+                - img [ref=e382]
+                - generic [ref=e384]: Helpful (45)
+          - generic [ref=e385]:
+            - generic [ref=e386]:
+              - generic [ref=e387]:
+                - generic [ref=e389]:
+                  - img [ref=e390]
+                  - img [ref=e392]
+                  - img [ref=e394]
+                  - img [ref=e396]
+                  - img [ref=e398]
+                - heading "Exceeded expectations" [level=4] [ref=e400]
+              - generic [ref=e401]: 15 Dec 2025
+            - paragraph [ref=e402]: Was skeptical at first but this calendar has genuinely improved our household organization. The chore chart feature keeps the kids accountable. Highly recommend for any family with busy schedules.
+            - generic [ref=e403]:
+              - generic [ref=e404]:
+                - text: Anonymous
+                - generic [ref=e405]: • Melbourne, AU
+              - button "Helpful (8)" [ref=e406]:
+                - img [ref=e407]
+                - generic [ref=e409]: Helpful (8)
+      - generic [ref=e412]:
+        - heading "Technical Specifications" [level=2] [ref=e415]
+        - generic [ref=e416]:
+          - generic [ref=e417]:
+            - generic [ref=e418]: Display Size
+            - generic [ref=e419]: 15.6 inches
+          - generic [ref=e420]:
+            - generic [ref=e421]: Display Type
+            - generic [ref=e422]: IPS HD Touchscreen (1080p)
+          - generic [ref=e423]:
+            - generic [ref=e424]: Resolution
+            - generic [ref=e425]: 1920 x 1080 Full HD
+          - generic [ref=e426]:
+            - generic [ref=e427]: Connectivity
+            - generic [ref=e428]: Wi-Fi (2.4GHz & 5GHz)
+          - generic [ref=e429]:
+            - generic [ref=e430]: Calendar Sync
+            - generic [ref=e431]: Google, iCloud, Outlook, Yahoo, Cozi
+          - generic [ref=e432]:
+            - generic [ref=e433]: Frame Colors
+            - generic [ref=e434]: White, Grey, Snow White
+          - generic [ref=e435]:
+            - generic [ref=e436]: Cover Material
+            - generic [ref=e437]: Polycarbonate (PC)
+          - generic [ref=e438]:
+            - generic [ref=e439]: Power
+            - generic [ref=e440]: AC Adapter (included)
+          - generic [ref=e441]:
+            - generic [ref=e442]: Package Dimensions
+            - generic [ref=e443]: 14.96 x 8.66 x 1.97 inches
+          - generic [ref=e444]:
+            - generic [ref=e445]: Item Weight
+            - generic [ref=e446]: 1.76 pounds (0.8 kg)
+          - generic [ref=e447]:
+            - generic [ref=e448]: Mobile App
+            - generic [ref=e449]: Zical (iOS & Android)
+          - generic [ref=e450]:
+            - generic [ref=e451]: Subscription
+            - generic [ref=e452]: None Required - Lifetime Free
+          - generic [ref=e453]:
+            - generic [ref=e454]: Model Number
+            - generic [ref=e455]: DGL-07
+          - generic [ref=e456]:
+            - generic [ref=e457]: ASIN
+            - generic [ref=e458]: B0FYDC2WFG
+          - generic [ref=e459]:
+            - generic [ref=e460]: Date First Available
+            - generic [ref=e461]: October 30, 2025
+      - generic [ref=e464]:
+        - heading "Frequently Asked Questions" [level=2] [ref=e467]
+        - generic [ref=e468]:
+          - generic [ref=e469]:
+            - 'heading "Q: How easy is it to set up?" [level=3] [ref=e471]':
+              - generic [ref=e472]: "Q:"
+              - text: How easy is it to set up?
+            - paragraph [ref=e474]: Setup takes just minutes! Simply plug in, connect to Wi-Fi, and sync your existing calendars. No technical expertise needed.
+          - generic [ref=e475]:
+            - 'heading "Q: Does it work with my calendar app?" [level=3] [ref=e477]':
+              - generic [ref=e478]: "Q:"
+              - text: Does it work with my calendar app?
+            - paragraph [ref=e480]: Yes! It syncs seamlessly with Google Calendar, Apple iCloud, Outlook, Yahoo, and Cozi. All updates appear automatically.
+          - generic [ref=e481]:
+            - 'heading "Q: Is there a monthly subscription?" [level=3] [ref=e483]':
+              - generic [ref=e484]: "Q:"
+              - text: Is there a monthly subscription?
+            - paragraph [ref=e486]: No subscription required - ever! It's a one-time purchase with all features included.
+          - generic [ref=e487]:
+            - 'heading "Q: What''s the return policy?" [level=3] [ref=e489]':
+              - generic [ref=e490]: "Q:"
+              - text: What's the return policy?
+            - paragraph [ref=e492]: We offer a 30-day money-back guarantee. If you're not completely satisfied, return it for a full refund.
+        - generic [ref=e493]:
+          - paragraph [ref=e494]: Still have questions?
+          - link "Contact Us" [ref=e495] [cursor=pointer]:
+            - /url: /nz/contact
+      - generic [ref=e498]:
+        - heading "Ready to Transform Your Family's Organization?" [level=2] [ref=e499]
+        - paragraph [ref=e500]: Join thousands of families who have simplified their daily routines
+        - generic [ref=e501]:
+          - button "Add to Cart - NZD $429" [ref=e502]
+          - generic [ref=e503]:
+            - img [ref=e504]
+            - generic [ref=e506]: 30-Day Money-Back Guarantee
+      - generic [ref=e508]:
+        - heading "You May Also Like" [level=2] [ref=e511]
+        - link "Mini Arcade Machine - Front View Mini Arcade Machine 240 Built-In Retro Games Console NZD $69 NZD $89" [ref=e513] [cursor=pointer]:
+          - /url: /nz/p/mini-arcade-machine
+          - img "Mini Arcade Machine - Front View" [ref=e515]
+          - heading "Mini Arcade Machine" [level=3] [ref=e516]
+          - paragraph [ref=e517]: 240 Built-In Retro Games Console
+          - generic [ref=e518]:
+            - generic [ref=e519]: NZD $69
+            - generic [ref=e520]: NZD $89
+    - contentinfo [ref=e521]:
+      - generic [ref=e524]:
+        - heading "Stay Updated" [level=3] [ref=e525]
+        - paragraph [ref=e526]: Subscribe for exclusive offers and new product updates.
+        - generic [ref=e527]:
+          - textbox "Enter your email" [ref=e528]
+          - button "Subscribe" [ref=e529]
+      - generic [ref=e531]:
+        - generic [ref=e532]:
+          - link "LUXEHOME" [ref=e533] [cursor=pointer]:
+            - /url: /nz
+          - paragraph [ref=e534]: Premium smart home essentials for modern families.
+          - generic [ref=e535]:
+            - link "Instagram" [ref=e536] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e537]
+            - link "Pinterest" [ref=e539] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e540]
+            - link "Twitter" [ref=e542] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e543]
+        - generic [ref=e545]:
+          - heading "Shop" [level=4] [ref=e546]
+          - list [ref=e547]:
+            - listitem [ref=e548]:
+              - link "Kitchen" [ref=e549] [cursor=pointer]:
+                - /url: /nz/kitchen
+            - listitem [ref=e550]:
+              - link "Outdoor" [ref=e551] [cursor=pointer]:
+                - /url: /nz/outdoor
+            - listitem [ref=e552]:
+              - link "Tech" [ref=e553] [cursor=pointer]:
+                - /url: /nz/tech
+            - listitem [ref=e554]:
+              - link "Lifestyle" [ref=e555] [cursor=pointer]:
+                - /url: /nz/lifestyle
+        - generic [ref=e556]:
+          - heading "Company" [level=4] [ref=e557]
+          - list [ref=e558]:
+            - listitem [ref=e559]:
+              - link "About Us" [ref=e560] [cursor=pointer]:
+                - /url: /nz/about
+            - listitem [ref=e561]:
+              - link "Blog" [ref=e562] [cursor=pointer]:
+                - /url: /nz/blog
+            - listitem [ref=e563]:
+              - link "Contact" [ref=e564] [cursor=pointer]:
+                - /url: /nz/contact
+        - generic [ref=e565]:
+          - heading "Support" [level=4] [ref=e566]
+          - list [ref=e567]:
+            - listitem [ref=e568]:
+              - link "FAQ" [ref=e569] [cursor=pointer]:
+                - /url: /nz/faq
+            - listitem [ref=e570]:
+              - link "Shipping" [ref=e571] [cursor=pointer]:
+                - /url: /nz/shipping
+            - listitem [ref=e572]:
+              - link "Returns" [ref=e573] [cursor=pointer]:
+                - /url: /nz/returns
+            - listitem [ref=e574]:
+              - link "support@luxehome.com" [ref=e575] [cursor=pointer]:
+                - /url: mailto:support@luxehome.com
+                - img [ref=e576]
+                - text: support@luxehome.com
+        - generic [ref=e578]:
+          - heading "Legal" [level=4] [ref=e579]
+          - list [ref=e580]:
+            - listitem [ref=e581]:
+              - link "Privacy Policy" [ref=e582] [cursor=pointer]:
+                - /url: /nz/privacy
+            - listitem [ref=e583]:
+              - link "Terms of Service" [ref=e584] [cursor=pointer]:
+                - /url: /nz/terms
+      - generic [ref=e587]:
+        - paragraph [ref=e588]: © 2026 Luxehome. All rights reserved.
+        - paragraph [ref=e589]: Shipping to New Zealand (NZD)
+  - alert [ref=e590]
+  - generic [ref=e591]:
+    - generic [ref=e592]:
+      - heading "Your Cart (0)" [level=2] [ref=e593]
+      - button "Close cart" [ref=e594]:
+        - img [ref=e595]
+    - generic [ref=e598]:
+      - img [ref=e599]
+      - paragraph [ref=e601]: Your cart is empty
+      - button "Continue Shopping" [ref=e602] [cursor=pointer]
+```

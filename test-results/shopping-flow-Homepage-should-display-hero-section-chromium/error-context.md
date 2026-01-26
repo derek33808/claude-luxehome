@@ -1,0 +1,247 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e5]:
+        - generic [ref=e6]: 🎉
+        - paragraph [ref=e7]:
+          - text: Free Shipping on orders over NZD $100 to New Zealand|
+          - link "Shop Now" [ref=e8] [cursor=pointer]:
+            - /url: /nz/products
+      - button "Close notification" [ref=e9]:
+        - img [ref=e10]
+    - banner [ref=e12]:
+      - navigation [ref=e14]:
+        - link "LUXEHOME" [ref=e15] [cursor=pointer]:
+          - /url: /nz
+        - list [ref=e16]:
+          - listitem [ref=e17]:
+            - link "Home" [ref=e18] [cursor=pointer]:
+              - /url: /nz
+          - listitem [ref=e19]:
+            - link "Kitchen" [ref=e20] [cursor=pointer]:
+              - /url: /nz/kitchen
+          - listitem [ref=e21]:
+            - link "Outdoor" [ref=e22] [cursor=pointer]:
+              - /url: /nz/outdoor
+          - listitem [ref=e23]:
+            - link "Tech" [ref=e24] [cursor=pointer]:
+              - /url: /nz/tech
+          - listitem [ref=e25]:
+            - link "Lifestyle" [ref=e26] [cursor=pointer]:
+              - /url: /nz/lifestyle
+          - listitem [ref=e27]:
+            - link "Blog" [ref=e28] [cursor=pointer]:
+              - /url: /nz/blog
+        - generic [ref=e29]:
+          - button "🇳🇿 NZ" [ref=e31]:
+            - generic [ref=e32]: 🇳🇿
+            - generic [ref=e33]: NZ
+            - img [ref=e34]
+          - button "Search" [ref=e36]:
+            - img [ref=e37]
+          - button "Shopping cart with 0 items" [ref=e39]:
+            - img [ref=e40]
+    - main [ref=e42]:
+      - generic [ref=e45]:
+        - heading "Premium Smart Home Essentials" [level=1] [ref=e47]:
+          - text: Premium Smart Home
+          - emphasis [ref=e48]: Essentials
+        - paragraph [ref=e49]: Discover our curated collection of high-quality products designed to enhance your everyday living. Thoughtfully selected for modern families.
+        - generic [ref=e50]:
+          - link "Shop Collection" [ref=e51] [cursor=pointer]:
+            - /url: /nz/kitchen
+          - link "Our Story" [ref=e52] [cursor=pointer]:
+            - /url: /nz/about
+      - generic [ref=e57]:
+        - heading "Shop by Category" [level=2] [ref=e60]
+        - generic [ref=e61]:
+          - link "Kitchen Smart kitchen essentials" [ref=e62] [cursor=pointer]:
+            - /url: /nz/kitchen
+            - generic [ref=e65]:
+              - heading "Kitchen" [level=3] [ref=e66]
+              - paragraph [ref=e67]: Smart kitchen essentials
+          - link "Outdoor Outdoor living & garden" [ref=e68] [cursor=pointer]:
+            - /url: /nz/outdoor
+            - generic [ref=e71]:
+              - heading "Outdoor" [level=3] [ref=e72]
+              - paragraph [ref=e73]: Outdoor living & garden
+          - link "Tech Smart home technology" [ref=e74] [cursor=pointer]:
+            - /url: /nz/tech
+            - generic [ref=e77]:
+              - heading "Tech" [level=3] [ref=e78]
+              - paragraph [ref=e79]: Smart home technology
+          - link "Lifestyle Modern living essentials" [ref=e80] [cursor=pointer]:
+            - /url: /nz/lifestyle
+            - generic [ref=e83]:
+              - heading "Lifestyle" [level=3] [ref=e84]
+              - paragraph [ref=e85]: Modern living essentials
+      - generic [ref=e88]:
+        - img "Smart Digital Calendar - White Frame Main View" [ref=e90]
+        - generic [ref=e91]:
+          - text: Featured Product
+          - heading "Smart Digital Calendar" [level=2] [ref=e93]
+          - paragraph [ref=e94]: Bring order to your busy household with this 15.6" touchscreen calendar. View schedules, chores, to-dos, and reminders in one central hub. Color-code and assign tasks to each family member for clarity and collaboration. When not in use, it transforms into a beautiful 1080p digital photo frame.
+          - list [ref=e95]:
+            - listitem [ref=e96]:
+              - img [ref=e97]
+              - text: All-in-One Smart Family Organizer
+            - listitem [ref=e99]:
+              - img [ref=e100]
+              - text: Easy Setup & Calendar Sync
+            - listitem [ref=e102]:
+              - img [ref=e103]
+              - text: Interactive Chore Chart & Meal Planner
+          - generic [ref=e105]:
+            - generic [ref=e106]: NZD $429
+            - generic [ref=e107]: NZD $499
+          - link "View Product" [ref=e108] [cursor=pointer]:
+            - /url: /nz/p/smart-digital-calendar
+      - generic [ref=e110]:
+        - generic [ref=e111]:
+          - heading "Our Products" [level=2] [ref=e113]
+          - paragraph [ref=e114]: Premium quality products loved by customers
+        - generic [ref=e115]:
+          - link "Smart Digital Calendar - White Frame Main View Smart Digital Calendar 15.6\" Family Organizer & Wall Planner with Touchscreen NZD $429 NZD $499" [ref=e116] [cursor=pointer]:
+            - /url: /nz/p/smart-digital-calendar
+            - img "Smart Digital Calendar - White Frame Main View" [ref=e118]
+            - heading "Smart Digital Calendar" [level=3] [ref=e119]
+            - paragraph [ref=e120]: 15.6" Family Organizer & Wall Planner with Touchscreen
+            - generic [ref=e121]:
+              - generic [ref=e122]: NZD $429
+              - generic [ref=e123]: NZD $499
+          - link "Mini Arcade Machine - Front View Mini Arcade Machine 240 Built-In Retro Games Console NZD $69 NZD $89" [ref=e124] [cursor=pointer]:
+            - /url: /nz/p/mini-arcade-machine
+            - img "Mini Arcade Machine - Front View" [ref=e126]
+            - heading "Mini Arcade Machine" [level=3] [ref=e127]
+            - paragraph [ref=e128]: 240 Built-In Retro Games Console
+            - generic [ref=e129]:
+              - generic [ref=e130]: NZD $69
+              - generic [ref=e131]: NZD $89
+        - link "View All Products" [ref=e133] [cursor=pointer]:
+          - /url: /nz/products
+      - generic [ref=e136]:
+        - heading "Curated for Modern Living" [level=2] [ref=e138]
+        - paragraph [ref=e139]: At Luxehome, we believe in the power of thoughtfully designed products to transform everyday moments. Each item in our collection is carefully selected for quality, functionality, and timeless appeal.
+        - link "Learn More About Us" [ref=e140] [cursor=pointer]:
+          - /url: /nz/about
+          - text: Learn More About Us
+          - img [ref=e141]
+      - generic [ref=e144]:
+        - heading "Why Choose Luxehome" [level=2] [ref=e147]
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - img [ref=e151]
+            - heading "Premium Quality" [level=3] [ref=e153]
+            - paragraph [ref=e154]: Every product is carefully vetted for quality, durability, and design excellence.
+          - generic [ref=e155]:
+            - img [ref=e157]
+            - heading "Free Shipping" [level=3] [ref=e159]
+            - paragraph [ref=e160]: Enjoy free standard shipping on all orders over NZD $100.
+          - generic [ref=e161]:
+            - img [ref=e163]
+            - heading "30-Day Returns" [level=3] [ref=e165]
+            - paragraph [ref=e166]: Not satisfied? Return within 30 days for a full refund. No questions asked.
+      - generic [ref=e169]:
+        - heading "Frequently Asked Questions" [level=2] [ref=e172]
+        - generic [ref=e173]:
+          - generic [ref=e174]:
+            - heading "Do you ship to New Zealand?" [level=3] [ref=e175]
+            - paragraph [ref=e177]: Yes! We offer shipping throughout New Zealand. Standard shipping typically takes 5-7 business days. Express shipping options are also available at checkout.
+          - generic [ref=e178]:
+            - heading "What is your return policy?" [level=3] [ref=e179]
+            - paragraph [ref=e181]: We offer a 30-day return policy for all products. Items must be unused and in original packaging. Contact our support team to initiate a return.
+          - generic [ref=e182]:
+            - heading "Are prices shown in NZD?" [level=3] [ref=e183]
+            - paragraph [ref=e185]: Yes, all prices on our New Zealand store are displayed in NZD. Prices include GST where applicable.
+    - contentinfo [ref=e186]:
+      - generic [ref=e189]:
+        - heading "Stay Updated" [level=3] [ref=e190]
+        - paragraph [ref=e191]: Subscribe for exclusive offers and new product updates.
+        - generic [ref=e192]:
+          - textbox "Enter your email" [ref=e193]
+          - button "Subscribe" [ref=e194]
+      - generic [ref=e196]:
+        - generic [ref=e197]:
+          - link "LUXEHOME" [ref=e198] [cursor=pointer]:
+            - /url: /nz
+          - paragraph [ref=e199]: Premium smart home essentials for modern families.
+          - generic [ref=e200]:
+            - link "Instagram" [ref=e201] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e202]
+            - link "Pinterest" [ref=e204] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e205]
+            - link "Twitter" [ref=e207] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e208]
+        - generic [ref=e210]:
+          - heading "Shop" [level=4] [ref=e211]
+          - list [ref=e212]:
+            - listitem [ref=e213]:
+              - link "Kitchen" [ref=e214] [cursor=pointer]:
+                - /url: /nz/kitchen
+            - listitem [ref=e215]:
+              - link "Outdoor" [ref=e216] [cursor=pointer]:
+                - /url: /nz/outdoor
+            - listitem [ref=e217]:
+              - link "Tech" [ref=e218] [cursor=pointer]:
+                - /url: /nz/tech
+            - listitem [ref=e219]:
+              - link "Lifestyle" [ref=e220] [cursor=pointer]:
+                - /url: /nz/lifestyle
+        - generic [ref=e221]:
+          - heading "Company" [level=4] [ref=e222]
+          - list [ref=e223]:
+            - listitem [ref=e224]:
+              - link "About Us" [ref=e225] [cursor=pointer]:
+                - /url: /nz/about
+            - listitem [ref=e226]:
+              - link "Blog" [ref=e227] [cursor=pointer]:
+                - /url: /nz/blog
+            - listitem [ref=e228]:
+              - link "Contact" [ref=e229] [cursor=pointer]:
+                - /url: /nz/contact
+        - generic [ref=e230]:
+          - heading "Support" [level=4] [ref=e231]
+          - list [ref=e232]:
+            - listitem [ref=e233]:
+              - link "FAQ" [ref=e234] [cursor=pointer]:
+                - /url: /nz/faq
+            - listitem [ref=e235]:
+              - link "Shipping" [ref=e236] [cursor=pointer]:
+                - /url: /nz/shipping
+            - listitem [ref=e237]:
+              - link "Returns" [ref=e238] [cursor=pointer]:
+                - /url: /nz/returns
+            - listitem [ref=e239]:
+              - link "support@luxehome.com" [ref=e240] [cursor=pointer]:
+                - /url: mailto:support@luxehome.com
+                - img [ref=e241]
+                - text: support@luxehome.com
+        - generic [ref=e243]:
+          - heading "Legal" [level=4] [ref=e244]
+          - list [ref=e245]:
+            - listitem [ref=e246]:
+              - link "Privacy Policy" [ref=e247] [cursor=pointer]:
+                - /url: /nz/privacy
+            - listitem [ref=e248]:
+              - link "Terms of Service" [ref=e249] [cursor=pointer]:
+                - /url: /nz/terms
+      - generic [ref=e252]:
+        - paragraph [ref=e253]: © 2026 Luxehome. All rights reserved.
+        - paragraph [ref=e254]: Shipping to New Zealand (NZD)
+  - alert [ref=e255]
+  - generic [ref=e256]:
+    - generic [ref=e257]:
+      - heading "Your Cart (0)" [level=2] [ref=e258]
+      - button "Close cart" [ref=e259]:
+        - img [ref=e260]
+    - generic [ref=e263]:
+      - img [ref=e264]
+      - paragraph [ref=e266]: Your cart is empty
+      - button "Continue Shopping" [ref=e267] [cursor=pointer]
+```
