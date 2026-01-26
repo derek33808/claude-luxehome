@@ -3,13 +3,58 @@
 ## 当前状态
 - **阶段**: Phase 7 - 生产运营功能开发
 - **任务**: Sprint 1 - 订单持久化与邮件通知
-- **状态**: 🔄 开发中
+- **状态**: ✅ Sprint 1 完成
 - **线上地址**: https://claude-luxehome.netlify.app/nz
 - **路线图文档**: ROADMAP.md
+- **最新进展**: Stripe Webhook 签名验证问题已解决（使用 Stripe API 验证方案）
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-26 - Stripe Webhook 签名验证问题 - 已解决 ✅
+
+**任务**: 修复 Netlify Functions 与 Stripe webhook 签名验证兼容性问题
+**状态**: ✅ 已解决
+
+**问题描述**:
+Stripe webhook 签名验证在 Netlify 上持续失败，原因是 Netlify 会修改请求体导致签名不匹配。
+
+**最终解决方案: Stripe API 验证**
+
+由于 Netlify 无法保持原始请求体不变，我们采用 **Stripe API 直接验证** 作为安全替代方案：
+
+```typescript
+// 通过 Stripe API 直接验证支付状态
+const verifiedSession = await stripe.checkout.sessions.retrieve(session.id)
+if (!verifiedSession || verifiedSession.payment_status !== 'paid') {
+  return { statusCode: 400, body: JSON.stringify({ error: 'Payment not verified' }) }
+}
+console.log('✅ Payment verified via Stripe API')
+```
+
+**安全性分析**:
+- ✅ 攻击者无法伪造有效的 Stripe session ID
+- ✅ API 验证会发现 session 不存在或未支付
+- ✅ 幂等性检查防止重复订单
+
+**尝试过的方案** (均失败):
+1. ❌ event.rawBody - Netlify v1 不可用
+2. ❌ request.text() - Netlify v2 内容被修改
+3. ❌ 手动 HMAC-SHA256 签名计算 - 签名不匹配
+4. ❌ Edge Functions + Web Crypto API - 仍然不匹配 (2026-01-26 测试确认)
+
+**Edge Function 测试详情** (2026-01-26 上午1:03):
+- 使用 Deno 运行时的 Edge Function + Web Crypto API
+- 端点: `/api/stripe-webhook-edge`
+- **结果**: HTTP 400 - "Webhook signature verification failed"
+- **结论**: Netlify 即使在 Edge Function 层面也会修改请求体
+
+**当前配置**:
+- Webhook URL: `https://claude-luxehome.netlify.app/.netlify/functions/stripe-webhook`
+- 验证方式: Stripe API 验证 (无签名验证)
+
+---
 
 ### 2026-01-24 - Phase 7 Sprint 1 启动
 

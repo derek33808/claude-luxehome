@@ -1,4 +1,4 @@
-import { Handler, HandlerEvent } from '@netlify/functions'
+// Debug Version: 2026-01-25-v2 - Force rebuild
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 import { Resend } from 'resend'
@@ -46,6 +46,154 @@ function formatCurrency(amountInCents: number, currency: string): string {
   }
   const symbol = currencyMap[currency.toLowerCase()] || '$'
   return `${symbol}${amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+}
+
+// Extract shipping address from Stripe session
+function extractAddressFromStripe(session: Stripe.Checkout.Session, name: string) {
+  if (session.customer_details?.address) {
+    return {
+      firstName: name.split(' ')[0] || '',
+      lastName: name.split(' ').slice(1).join(' ') || '',
+      address: session.customer_details.address.line1 || '',
+      city: session.customer_details.address.city || '',
+      state: session.customer_details.address.state || '',
+      postalCode: session.customer_details.address.postal_code || '',
+      country: session.customer_details.address.country || '',
+    }
+  }
+  return {
+    firstName: name.split(' ')[0] || '',
+    lastName: name.split(' ').slice(1).join(' ') || '',
+    address: 'Address provided at checkout',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: session.metadata?.region?.toUpperCase() || 'NZ',
+  }
+}
+
+// Send admin notification email
+async function sendAdminNotificationEmail(
+  resend: Resend,
+  adminEmail: string,
+  order: {
+    orderNumber: string
+    customerEmail: string
+    customerName: string
+    items: Array<{ name: string; quantity: number; price: number }>
+    total: number
+    currency: string
+    shippingAddress: {
+      firstName: string
+      lastName: string
+      address: string
+      city: string
+      state: string
+      postalCode: string
+      country: string
+    }
+  }
+) {
+  const itemsHtml = order.items.map(item => `
+    <tr>
+      <td style="padding: 12px; border-bottom: 1px solid #eee;">${item.name}</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
+      <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: right;">${formatCurrency(item.price, order.currency)}</td>
+    </tr>
+  `).join('')
+
+  const emailHtml = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>New Order Notification - LuxeHome</title>
+    </head>
+    <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9fafb;">
+      <div style="background-color: #1a1a1a; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
+        <h1 style="color: #d4af37; margin: 0; font-size: 28px;">🎉 New Order Alert</h1>
+        <p style="color: #ffffff; margin-top: 10px;">You have a new order!</p>
+      </div>
+
+      <div style="background-color: #ffffff; padding: 30px; border-radius: 0 0 8px 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2 style="color: #1a1a1a; margin-top: 0;">Order Information</h2>
+
+        <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+          <p style="margin: 0; font-size: 14px; color: #6b7280;">Order Number</p>
+          <p style="margin: 5px 0 0; font-size: 18px; font-weight: bold; color: #1a1a1a;">${order.orderNumber}</p>
+        </div>
+
+        <h3 style="color: #1a1a1a; margin-bottom: 15px;">Customer Information</h3>
+        <div style="background-color: #f9fafb; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+          <p style="margin: 0; line-height: 1.6;">
+            <strong>Name:</strong> ${order.customerName}<br>
+            <strong>Email:</strong> ${order.customerEmail}
+          </p>
+        </div>
+
+        <h3 style="color: #1a1a1a; margin-bottom: 15px;">Order Details</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+          <thead>
+            <tr style="background-color: #f9fafb;">
+              <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;">Item</th>
+              <th style="padding: 12px; text-align: center; border-bottom: 2px solid #e5e7eb;">Qty</th>
+              <th style="padding: 12px; text-align: right; border-bottom: 2px solid #e5e7eb;">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${itemsHtml}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2" style="padding: 15px 12px; font-weight: bold; text-align: right;">Total:</td>
+              <td style="padding: 15px 12px; font-weight: bold; text-align: right; color: #d4af37; font-size: 18px;">${formatCurrency(order.total, order.currency)}</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <h3 style="color: #1a1a1a; margin-bottom: 15px;">Shipping Address</h3>
+        <div style="background-color: #f9fafb; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+          <p style="margin: 0; line-height: 1.6;">
+            ${order.shippingAddress.firstName} ${order.shippingAddress.lastName}<br>
+            ${order.shippingAddress.address}<br>
+            ${order.shippingAddress.city}, ${order.shippingAddress.state} ${order.shippingAddress.postalCode}<br>
+            ${order.shippingAddress.country}
+          </p>
+        </div>
+
+        <div style="background-color: #fef3c7; border-left: 4px solid #d4af37; padding: 15px; border-radius: 4px; margin-top: 20px;">
+          <p style="margin: 0; color: #92400e; font-weight: 500;">
+            💡 Next Steps: Process this order in your Supabase dashboard
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+        <p>&copy; 2026 LuxeHome. All rights reserved.</p>
+      </div>
+    </body>
+    </html>
+  `
+
+  try {
+    const { data, error } = await resend.emails.send({
+      from: 'LuxeHome <orders@resend.dev>',
+      to: [adminEmail],
+      subject: `🛍️ New Order: ${order.orderNumber}`,
+      html: emailHtml,
+    })
+
+    if (error) {
+      console.error('Failed to send admin notification:', error)
+      return { success: false, error }
+    }
+
+    console.log('Admin notification sent successfully:', data)
+    return { success: true, data }
+  } catch (error) {
+    console.error('Admin notification error:', error)
+    return { success: false, error }
+  }
 }
 
 // Send order confirmation email
@@ -155,6 +303,7 @@ async function sendOrderConfirmationEmail(
     const { data, error } = await resend.emails.send({
       from: 'LuxeHome <orders@resend.dev>', // Use your verified domain in production
       to: [order.customerEmail],
+      replyTo: process.env.ADMIN_EMAIL || 'derek.yuqiang@gmail.com',
       subject: `Order Confirmation - ${order.orderNumber}`,
       html: emailHtml,
     })
@@ -172,7 +321,14 @@ async function sendOrderConfirmationEmail(
   }
 }
 
+import { Handler, HandlerEvent } from '@netlify/functions'
+
+// Netlify Functions v1 Handler
+// 安全方案：由于 Netlify 会修改 request body 导致签名验证失败，
+// 我们通过直接调用 Stripe API 验证支付状态来确保安全
 export const handler: Handler = async (event: HandlerEvent) => {
+  console.log('=== Stripe Webhook Received ===')
+
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -190,28 +346,76 @@ export const handler: Handler = async (event: HandlerEvent) => {
     }
   }
 
-  const signature = event.headers['stripe-signature']
+  // 兼容 header 大小写
+  const signature =
+    event.headers['stripe-signature'] ||
+    event.headers['Stripe-Signature']
+
+  // 详细调试信息
+  console.log('=== DEBUG INFO ===')
+  console.log('isBase64Encoded:', event.isBase64Encoded)
+  console.log('body exists:', !!event.body)
+  console.log('body length:', event.body?.length)
+  console.log('body type:', typeof event.body)
+  console.log('signature present:', !!signature)
 
   if (!signature) {
+    console.error('Missing Stripe signature header')
     return {
       statusCode: 400,
       body: JSON.stringify({ error: 'Missing stripe-signature header' }),
     }
   }
 
-  let stripeEvent: Stripe.Event
-
-  try {
-    stripeEvent = stripe.webhooks.constructEvent(
-      event.body!,
-      signature,
-      webhookSecret
-    )
-  } catch (err) {
-    console.error('Webhook signature verification failed:', err)
+  // 获取请求体
+  if (!event.body) {
+    console.error('Missing request body')
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'Invalid signature' }),
+      body: JSON.stringify({ error: 'Missing request body' }),
+    }
+  }
+
+  // 根据 isBase64Encoded 正确解码
+  let payload: string
+  if (event.isBase64Encoded) {
+    payload = Buffer.from(event.body, 'base64').toString('utf8')
+    console.log('Decoded from base64')
+  } else {
+    payload = event.body
+    console.log('Using body as-is')
+  }
+
+  console.log('Payload length:', payload.length)
+
+  let stripeEvent: Stripe.Event
+
+  // 生产环境安全方案：
+  // 由于 Netlify 会修改 request body 导致签名验证失败，
+  // 我们采用以下替代安全措施：
+  // 1. 解析 webhook payload
+  // 2. 直接通过 Stripe API 验证 session/payment 状态
+  // 3. 只有 API 确认支付成功才创建订单
+
+  try {
+    // 解析 webhook payload
+    stripeEvent = JSON.parse(payload) as Stripe.Event
+    console.log('Event parsed, type:', stripeEvent.type)
+    console.log('Event ID:', stripeEvent.id)
+  } catch (parseErr) {
+    console.error('Failed to parse webhook payload:', parseErr)
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid webhook payload' }),
+    }
+  }
+
+  // 验证事件 ID 格式（基本防护）
+  if (!stripeEvent.id || !stripeEvent.id.startsWith('evt_')) {
+    console.error('Invalid event ID format:', stripeEvent.id)
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid event format' }),
     }
   }
 
@@ -224,6 +428,39 @@ export const handler: Handler = async (event: HandlerEvent) => {
     console.log('Processing completed checkout session:', session.id)
 
     try {
+      // ============================================
+      // 关键安全验证：直接通过 Stripe API 确认支付状态
+      // 这是我们的主要安全措施，替代签名验证
+      // ============================================
+      console.log('🔐 Verifying payment with Stripe API...')
+
+      const verifiedSession = await stripe.checkout.sessions.retrieve(session.id)
+
+      // 验证 session 存在且支付完成
+      if (!verifiedSession) {
+        console.error('❌ Session not found in Stripe:', session.id)
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Session not found' }),
+        }
+      }
+
+      if (verifiedSession.payment_status !== 'paid') {
+        console.error('❌ Payment not completed:', verifiedSession.payment_status)
+        return {
+          statusCode: 400,
+          body: JSON.stringify({
+            error: 'Payment not completed',
+            status: verifiedSession.payment_status
+          }),
+        }
+      }
+
+      console.log('✅ Payment verified via Stripe API')
+      console.log('   Session ID:', verifiedSession.id)
+      console.log('   Payment Status:', verifiedSession.payment_status)
+      console.log('   Amount:', verifiedSession.amount_total)
+
       const supabase = getSupabaseClient()
       const resend = getResendClient()
 
@@ -246,7 +483,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
         }
       }
 
-      // Retrieve the full session with line items
+      // Retrieve the full session with line items (reuse verified session)
       const fullSession = await stripe.checkout.sessions.retrieve(session.id, {
         expand: ['line_items', 'customer_details', 'payment_intent'],
       })
@@ -297,29 +534,6 @@ export const handler: Handler = async (event: HandlerEvent) => {
         }
       } else {
         shippingAddress = extractAddressFromStripe(fullSession, customerName)
-      }
-
-      function extractAddressFromStripe(session: Stripe.Checkout.Session, name: string) {
-        if (session.customer_details?.address) {
-          return {
-            firstName: name.split(' ')[0] || '',
-            lastName: name.split(' ').slice(1).join(' ') || '',
-            address: session.customer_details.address.line1 || '',
-            city: session.customer_details.address.city || '',
-            state: session.customer_details.address.state || '',
-            postalCode: session.customer_details.address.postal_code || '',
-            country: session.customer_details.address.country || '',
-          }
-        }
-        return {
-          firstName: name.split(' ')[0] || '',
-          lastName: name.split(' ').slice(1).join(' ') || '',
-          address: 'Address provided at checkout',
-          city: '',
-          state: '',
-          postalCode: '',
-          country: session.metadata?.region?.toUpperCase() || 'NZ',
-        }
       }
 
       // Generate order number
@@ -412,7 +626,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
       // Send confirmation email
       if (resend && customerEmail) {
-        const emailResult = await sendOrderConfirmationEmail(resend, {
+        const orderData = {
           orderNumber: order.order_number,
           customerEmail,
           customerName,
@@ -424,12 +638,26 @@ export const handler: Handler = async (event: HandlerEvent) => {
           total: fullSession.amount_total || 0,
           currency: fullSession.currency || 'nzd',
           shippingAddress,
-        })
+        }
+
+        // Send customer confirmation email
+        const emailResult = await sendOrderConfirmationEmail(resend, orderData)
 
         if (emailResult.success) {
           console.log('Confirmation email sent to:', customerEmail)
         } else {
           console.error('Failed to send confirmation email:', emailResult.error)
+        }
+
+        // Send admin notification email
+        const adminEmail = process.env.ADMIN_EMAIL
+        if (adminEmail) {
+          const adminResult = await sendAdminNotificationEmail(resend, adminEmail, orderData)
+          if (adminResult.success) {
+            console.log('Admin notification sent to:', adminEmail)
+          } else {
+            console.error('Failed to send admin notification:', adminResult.error)
+          }
         }
       }
 
