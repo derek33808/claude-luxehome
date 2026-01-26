@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import { useCart, CartItem, Cart } from './cart'
+import { useCart } from './cart'
 import { Product } from '@/data/products'
 
 // Mock product for testing

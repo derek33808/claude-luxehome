@@ -6,7 +6,6 @@ import {
   isValidRegion,
   getRegion,
   formatPrice,
-  type RegionCode,
 } from './regions'
 
 describe('regions', () => {

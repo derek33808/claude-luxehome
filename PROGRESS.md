@@ -2,15 +2,160 @@
 
 ## 当前状态
 - **阶段**: Phase 7 - 生产运营功能开发
-- **任务**: Sprint 1 - 订单持久化与邮件通知
-- **状态**: ✅ Sprint 1 完成
+- **任务**: Phase 3 - 订单管理
+- **状态**: ✅ Phase 3 完成并通过构建验证
 - **线上地址**: https://claude-luxehome.netlify.app/nz
 - **路线图文档**: ROADMAP.md
-- **最新进展**: Stripe Webhook 签名验证问题已解决（使用 Stripe API 验证方案）
+- **最新进展**: Phase 3 订单管理后台修复静态导出兼容性，构建验证通过
 
 ---
 
 ## 执行日志（按时间倒序）
+
+### 2026-01-26 14:00 - Phase 3 静态导出修复 ✅
+
+**任务**: 修复 Phase 3 订单管理在静态导出模式下的兼容性问题
+**状态**: ✅ 完成
+
+**问题与解决方案**:
+1. **动态路由问题**: `/admin/orders/[id]` 在静态导出模式下需要 `generateStaticParams()`
+   - 解决：改用查询参数 `/admin/orders?id=xxx` 替代路径参数
+
+2. **useSearchParams 问题**: 需要 Suspense 边界
+   - 解决：创建 `AdminOrdersContent` 内部组件，外层用 `Suspense` 包装
+
+3. **ESLint 错误**: `<a>` 标签应使用 `<Link>` 组件
+   - 解决：在 admin 登录页面将 `<a>` 替换为 `<Link>`
+
+**修改的文件**:
+- `src/app/admin/page.tsx` - 修复 Link 组件
+- `src/app/admin/orders/page.tsx` - 添加 Suspense 边界，改用查询参数
+- `src/components/admin/OrderDetailClient.tsx` - 新建客户端组件
+- `.env.example` - 添加 ADMIN_PASSWORD 配置说明
+
+**构建结果**: ✅ 87 个静态页面生成成功
+
+---
+
+### 2026-01-26 - Phase 3/5/6 实现完成 ✅
+
+**任务**: 实现订单管理后台、物流追踪、库存管理功能
+**状态**: ✅ 代码实现完成
+
+#### Phase 3: 订单管理后台
+
+**新增文件**:
+- `netlify/functions/admin-orders.ts` - Admin API 端点
+  - GET / - 订单列表（筛选、搜索、分页）
+  - GET /:id - 订单详情
+  - PUT /:id - 更新订单状态
+  - POST /:id/refund - 处理退款
+- `src/app/admin/layout.tsx` - Admin 布局
+- `src/app/admin/page.tsx` - 登录页面
+- `src/app/admin/orders/page.tsx` - 订单列表页
+- `src/app/admin/orders/[id]/page.tsx` - 订单详情页
+
+**功能特点**:
+- 简单密码保护（Bearer Token）
+- 订单列表支持按状态筛选、搜索、分页
+- 订单详情显示完整信息
+- 支持更新订单状态（pending → processing → shipped → delivered）
+- 支持添加物流单号和发货通知
+
+**环境变量**:
+```
+ADMIN_PASSWORD=your-secure-password
+```
+
+#### Phase 5: 物流追踪集成
+
+**新增文件**:
+- `netlify/functions/send-shipping-notification.ts` - 发货通知邮件
+
+**功能特点**:
+- 在订单详情页添加物流单号
+- 选择物流公司（支持 NZ Post, CourierPost, Australia Post, DHL, FedEx, UPS, USPS）
+- 一键发送发货通知邮件给客户
+- 邮件包含追踪链接
+- 自动更新订单状态为 shipped
+
+#### Phase 6: 库存管理
+
+**新增文件**:
+- `supabase/inventory-schema.sql` - 库存表结构
+- `netlify/functions/check-inventory.ts` - 库存检查 API
+- `src/components/product/StockStatus.tsx` - 库存状态组件
+
+**修改文件**:
+- `netlify/functions/stripe-webhook.ts` - 添加库存扣减逻辑
+- `src/components/product/ProductHeroClient.tsx` - 使用动态库存状态组件
+
+**数据库表结构**:
+```sql
+-- inventory 表
+- id, product_id, product_name, color_variant
+- stock_quantity, reserved_quantity, low_stock_threshold
+- sku, location, notes
+- created_at, updated_at
+
+-- inventory_history 表（变更历史）
+- id, inventory_id, product_id
+- change_type (sale/restock/adjustment/reserve/release)
+- quantity_change, previous_quantity, new_quantity
+- order_id, notes, created_at
+```
+
+**数据库函数**:
+- `check_and_deduct_inventory()` - 原子性检查和扣减库存
+- `get_available_stock()` - 获取可用库存
+- `restore_inventory()` - 恢复库存（用于退款/取消）
+
+**前端功能**:
+- 产品页面动态显示库存状态
+- 低库存提醒（显示剩余数量）
+- 缺货提示
+- 购物车库存验证 hook
+
+**下一步**:
+1. 在 Supabase 运行 `supabase/inventory-schema.sql` 创建库存表
+2. 在 Netlify 添加 `ADMIN_PASSWORD` 环境变量
+3. 部署并测试
+4. 在 Supabase 中为产品设置初始库存
+
+---
+
+### 2026-01-26 - 端到端支付流程测试 ✅
+
+**任务**: 验证完整支付流程（Stripe → Webhook → Supabase → Email）
+**状态**: ✅ 全部通过
+
+**测试结果**:
+
+| 验证项 | 状态 | 说明 |
+|--------|------|------|
+| Stripe Webhook 响应 | ✅ 200 OK | 最新事件返回成功状态 |
+| 订单保存到 Supabase | ✅ 13 条记录 | orders 表正常写入 |
+| 确认邮件发送 | ✅ 正常 | 客户收到 Order Confirmation 邮件 |
+
+**修复的问题**:
+- Netlify 构建失败：Edge Function 的 TypeScript 无法解析远程模块
+- 解决方案：删除 `netlify/edge-functions/` 目录，使用 Netlify Functions 版本
+
+**关键操作**:
+```bash
+# 删除有问题的 Edge Function
+mv netlify/edge-functions .deleted/edge-functions_20260126_114356
+git add -A && git commit -m "Remove edge function causing build failure"
+git push
+```
+
+**当前工作配置**:
+- Webhook URL: `https://claude-luxehome.netlify.app/.netlify/functions/stripe-webhook`
+- 验证方式: Stripe API 验证（无签名验证）
+- 数据库: Supabase PostgreSQL
+- 邮件服务: Resend
+
+---
 
 ### 2026-01-26 - Stripe Webhook 签名验证问题 - 已解决 ✅
 

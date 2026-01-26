@@ -6,6 +6,7 @@ import { ProductImageGallery } from './ProductImageGallery'
 import { ProductActions } from './ProductActions'
 import { ColorSelector } from './ColorSelector'
 import { StarRating } from '@/components/common/StarRating'
+import { StockStatus } from './StockStatus'
 
 interface ProductHeroClientProps {
   product: Product
@@ -116,17 +117,8 @@ export function ProductHeroClient({
               />
             )}
 
-            {/* Stock Status */}
-            <div className="flex items-center gap-2 mb-6">
-              <span
-                className={`w-3 h-3 rounded-full ${
-                  product.inStock ? 'bg-success animate-pulse' : 'bg-red-500'
-                }`}
-              />
-              <span className={product.inStock ? 'text-success font-medium' : 'text-red-500'}>
-                {product.inStock ? 'In Stock - Ready to Ship' : 'Out of Stock'}
-              </span>
-            </div>
+            {/* Stock Status - Dynamic from inventory system */}
+            <StockStatus productId={product.id} className="mb-6" />
 
             {/* Description */}
             <p className="text-text-light leading-relaxed mb-8">{product.description}</p>

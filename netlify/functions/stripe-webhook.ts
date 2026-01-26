@@ -622,6 +622,34 @@ export const handler: Handler = async (event: HandlerEvent) => {
         } else {
           console.log(`Created ${orderItems.length} order items`)
         }
+
+        // Deduct inventory for each item
+        console.log('Processing inventory deductions...')
+        for (const item of orderItems) {
+          try {
+            // Call the database function to deduct inventory
+            const { data: inventoryResult, error: inventoryError } = await supabase
+              .rpc('check_and_deduct_inventory', {
+                p_product_id: item.product_id,
+                p_quantity: item.quantity,
+                p_order_id: order.id,
+              })
+
+            if (inventoryError) {
+              console.warn(`Inventory deduction error for ${item.product_id}:`, inventoryError)
+            } else if (inventoryResult && inventoryResult.length > 0) {
+              const result = inventoryResult[0]
+              if (result.success) {
+                console.log(`Inventory deducted for ${item.product_id}: ${result.available_quantity} remaining`)
+              } else {
+                console.warn(`Inventory warning for ${item.product_id}: ${result.message}`)
+              }
+            }
+          } catch (invErr) {
+            // Don't fail the order if inventory deduction fails
+            console.error(`Inventory deduction failed for ${item.product_id}:`, invErr)
+          }
+        }
       }
 
       // Send confirmation email
