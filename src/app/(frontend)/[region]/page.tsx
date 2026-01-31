@@ -103,7 +103,7 @@ export default async function HomePage({ params }: PageProps) {
       />
 
       {/* Hero Section */}
-      <section className="relative h-[90vh] min-h-[600px] flex items-center bg-cream overflow-hidden">
+      <section className="relative py-16 md:py-24 flex items-center bg-cream overflow-hidden">
         <div className="container relative z-10">
           <div className="max-w-2xl">
             <div className="gold-line mb-6" />
