@@ -103,8 +103,8 @@ export default async function HomePage({ params }: PageProps) {
       />
 
       {/* Hero Section */}
-      <section className="relative h-[90vh] min-h-[600px] flex items-center bg-cream">
-        <div className="container">
+      <section className="relative h-[90vh] min-h-[600px] flex items-center bg-cream overflow-hidden">
+        <div className="container relative z-10">
           <div className="max-w-2xl">
             <div className="gold-line mb-6" />
             <h1 className="font-display text-display-lg text-primary mb-6">
@@ -125,17 +125,28 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Hero Background Pattern */}
+        {/* Hero Background Decorations */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
+          {/* Gradient */}
           <div className="absolute top-1/2 right-0 w-1/2 h-full -translate-y-1/2">
             <div className="w-full h-full bg-gradient-to-l from-secondary/10 to-transparent" />
           </div>
+          {/* Dot pattern */}
+          <div className="absolute inset-0 bg-pattern-dots-light opacity-60" />
+          {/* Decorative circles */}
+          <div className="absolute top-[10%] right-[10%] w-[500px] h-[500px] border border-accent/10 rounded-full" />
+          <div className="absolute top-[20%] right-[5%] w-[300px] h-[300px] border border-accent/5 rounded-full" />
+          <div className="absolute bottom-[10%] left-[5%] w-[200px] h-[200px] border border-accent/8 rounded-full" />
+          {/* Corner accent */}
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-bl from-accent/5 to-transparent" />
         </div>
       </section>
 
       {/* Categories Section */}
-      <section className="section bg-white">
-        <div className="container">
+      <section className="section bg-white relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-pattern-grid opacity-50" />
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="gold-line mx-auto mb-4" />
             <h2 className="font-display text-display-md text-primary">
@@ -173,8 +184,12 @@ export default async function HomePage({ params }: PageProps) {
         const featuredProduct = getAllProducts()[0]
         const featuredPrice = featuredProduct.prices[region as RegionCode]
         return (
-          <section className="section bg-cream">
-            <div className="container">
+          <section className="section bg-cream relative overflow-hidden">
+            {/* Background decorations */}
+            <div className="absolute inset-0 bg-pattern-diagonal" />
+            <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-gradient-to-br from-accent/5 to-transparent" />
+            <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-accent/5 to-transparent" />
+            <div className="container relative z-10">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 {/* Product Image */}
                 <div className="relative aspect-square bg-white shadow-lg overflow-hidden">
@@ -235,8 +250,11 @@ export default async function HomePage({ params }: PageProps) {
       })()}
 
       {/* Best Sellers Section */}
-      <section className="section bg-white">
-        <div className="container">
+      <section className="section bg-white relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute inset-0 bg-pattern-dots-light opacity-40" />
+        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-accent/5 rounded-full" />
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="gold-line mx-auto mb-4" />
             <h2 className="font-display text-display-md text-primary">
@@ -311,8 +329,12 @@ export default async function HomePage({ params }: PageProps) {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="section bg-cream">
-        <div className="container">
+      <section className="section bg-cream relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute inset-0 bg-pattern-grid opacity-30" />
+        <div className="absolute top-0 right-0 w-[250px] h-[250px] border border-accent/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-[350px] h-[350px] border border-accent/8 rounded-full translate-y-1/2 -translate-x-1/2" />
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="gold-line mx-auto mb-4" />
             <h2 className="font-display text-display-md text-primary">
@@ -355,8 +377,12 @@ export default async function HomePage({ params }: PageProps) {
       </section>
 
       {/* FAQ Section for GEO */}
-      <section className="section bg-white">
-        <div className="container">
+      <section className="section bg-white relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute inset-0 bg-pattern-diagonal opacity-50" />
+        <div className="absolute top-[20%] right-[10%] w-16 h-16 border border-accent/15 rounded-full" />
+        <div className="absolute bottom-[30%] left-[8%] w-24 h-24 border border-accent/10 rounded-full" />
+        <div className="container relative z-10">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-12">
               <div className="gold-line mx-auto mb-4" />
